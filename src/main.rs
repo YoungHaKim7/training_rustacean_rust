@@ -1,8 +1,9 @@
-use std::mem::size_of_val; // preprocessing  C 언어
+fn main () {
+    let my_number:u8 = 10;
+    let my_other:i32 = 100;
+    let third_number = my_number + my_other;
 
-fn main() {
-    let x:u8 = 24;
-    let y:i32 = 100;
+    println!("result: {third_number}");
 
-    println!("size is x = {} size is y = {}", size_of_val(&x), size_of_val(&y));
+    
 }
