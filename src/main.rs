@@ -1,9 +1,12 @@
 fn main() {
-    let x = 5;
+    let mut counter = 0;
 
-    let y = {
-        let x = 3;
-        x + 1
+    let result = loop {
+        counter += 1;
+
+        if counter == 10 {
+            break counter * 2;
+        }
     };
-    println!("y의 값: {y}")
+    println!("The result is {result}");
 }
