@@ -1,18 +1,7 @@
 fn main() {
-    let s = String::from("hello");
+    let tup = (500, 6.4, 1);
+    let (x, y, z) = tup;
 
-    takes_ownership(s);
-
-    let x = 5;
-
-    makes_copy(x);
-}
-
-fn takes_ownership(some_string: String) {
-    // some_string comes into scope
-    println!("{}", some_string);
-}
-fn makes_copy(some_integer: i32) {
-    // some_integer comes into scope
-    println!("{}", some_integer);
+    println!("y의 값: {y}");
+    println!("x,y,z의 값: {tup:?}");
 }
