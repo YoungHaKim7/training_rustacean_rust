@@ -1,5 +1,7 @@
 fn main() {
-    let a = [3; 5];
+    let a = [1, 2, 3, 4, 5];
+    let index = 4;
+    let element = a[index];
 
-    println!("print array : {a:?}");
+    println!("요소의 값: {element}");
 }
