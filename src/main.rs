@@ -1,3 +1,5 @@
+use std::io;
+
 enum Temp {
     F(f64),
     C(f64),
@@ -16,25 +18,24 @@ fn print_temp(temp: &Temp) {
         &Temp::C(degrees) => println!("{}C = {}F", degrees, convert_temp(temp)),
     }
 }
-
 fn sample_temps() {
-    println!("Sample conversions: ");
+    println!("Sample conversions:");
 
     let temps = [
-        Temp::F(-40.0),
-        Temp::F(0.0),
-        Temp::F(32.0),
-        Temp::F(60.0),
-        Temp::F(100.0),
-        Temp::F(150.0),
-        Temp::F(212.0),
-        Temp::F(-40.0),
-        Temp::F(0.0),
-        Temp::F(15.0),
-        Temp::F(30.0),
-        Temp::F(60.0),
-        Temp::F(100.0),
-        Temp::F(200.0),
+        Temp::F(-40.0), // -40
+        Temp::F(0.0),   // -18
+        Temp::F(32.0),  // 0
+        Temp::F(60.0),  // 16
+        Temp::F(100.0), // 38
+        Temp::F(150.0), // 66
+        Temp::F(212.0), // 100
+        Temp::C(-40.0), // -40
+        Temp::C(0.0),   // 32
+        Temp::C(15.0),  // 59
+        Temp::C(30.0),  // 86
+        Temp::C(60.0),  // 140
+        Temp::C(100.0), // 212
+        Temp::C(200.0), // 392
     ];
 
     for temp in temps.iter() {
@@ -42,8 +43,44 @@ fn sample_temps() {
     }
 }
 
+fn get_user_temp() {
+    println!("\nType  \"quit\" to end to the program");
+
+    loop {
+        let mut temp_input = String::new();
+
+        println!("\n Please input a temperature you want to convert (Format:100F or -40C): ");
+
+        io::stdin()
+            .read_line((&mut temp_input))
+            .expect("Failed to read line");
+
+        let trimmed = temp_input.trim();
+
+        if trimmed == "quit" {
+            break;
+        }
+
+        let (temp, scale) = trimmed.split_at(trimmed.len() - 1);
+
+        let temp: f64 = match temp.parse() {
+            Ok(num) => num,
+            Err(_) => continue,
+        };
+
+        let temp: Temp = match scale {
+            "C" => Temp::C(temp),
+            "F" => Temp::F(temp),
+            _ => continue,
+        };
+
+        print_temp(&temp);
+    }
+}
+
 fn main() {
-    println!("Welcome to temperature converter! \n");
+    println!("Welcome to temperature converter!\n");
 
     sample_temps();
+    get_user_temp();
 }
