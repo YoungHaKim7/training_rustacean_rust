@@ -1,6 +1,6 @@
 fn main() {
-    for number in (1..4).rev() {
-        println!("{number}!");
-    }
-    println!("발사!!!");
+    let my_number: i32 = 100;
+    let my_othernum = 500;
+    // type inference
+    println!("{}", my_number + my_othernum);
 }
