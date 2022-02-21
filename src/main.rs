@@ -1,21 +1,22 @@
-use std::mem::size_of_val;
+use ndarray::prelude::*;
+use std::{f64::consts::PI, fmt::Result};
 
-fn main() {
-    let a: char = 'a';
-    let b: u8 = 1;
-    let c: i16 = 2;
-    let d: i32 = 3;
-    let e: i64 = 4;
-    let f: i128 = 5;
-    let g: f32 = 6.;
-    let h: f64 = 7.;
+fn main () -> Result<(), ndarray::ShapeError> {
+    let a: Array1<f64> = array![0., 30., 45., 60., 90.];
 
-    println!("char size of val: {}", size_of_val(&a));
-    println!("u8 size of val: {}", size_of_val(&b));
-    println!("i16 size of val: {}", size_of_val(&c));
-    println!("i32 size of val: {}", size_of_val(&d));
-    println!("i64 size of val: {}", size_of_val(&e));
-    println!("i128 size of val: {}", size_of_val(&f));
-    println!("float __32bit : {}", size_of_val(&g));
-    println!("float __64bit : {}", size_of_val(&h));
+    println!("angle {}", a);
+    println!("sine(a) {}", (a * PI / 180_f64).map(|x| x.sin()));
+
+    let a = Array::from_shape_vec((3, 3), Array1::range(0., 9.,1.).to_vec())?;
+
+    let b = array![10.,10.,10.];
+    
+    println!("angles {}", &a);
+    println!("angles {}", &b);
+    println!("a * 2 {}", &a * 2.);
+    println!("a + b {} ", &a + &b);
+    println!("a *b {}", &a + &b);
+    println!("average(a) {}", a.sum() / a.len() as f64);
+    println!("mean(b) {} ", b.mean().unwrap());
+    Ok(())
 }
