@@ -1,22 +1,23 @@
-use ndarray::prelude::*;
-use std::{f64::consts::PI, fmt::Result};
+fn double(input:i32) -> i32 {
+    input * 2
+}
 
-fn main () -> Result<(), ndarray::ShapeError> {
-    let a: Array1<f64> = array![0., 30., 45., 60., 90.];
+fn triple(input:i32) -> i32 {
+    input *3
+}
 
-    println!("angle {}", a);
-    println!("sine(a) {}", (a * PI / 180_f64).map(|x| x.sin()));
-
-    let a = Array::from_shape_vec((3, 3), Array1::range(0., 9.,1.).to_vec())?;
-
-    let b = array![10.,10.,10.];
+fn main () {
+    let x = 9;
+{
+    let x = double(x);
+    let x = triple(x);
     
-    println!("angles {}", &a);
-    println!("angles {}", &b);
-    println!("a * 2 {}", &a * 2.);
-    println!("a + b {} ", &a + &b);
-    println!("a *b {}", &a + &b);
-    println!("average(a) {}", a.sum() / a.len() as f64);
-    println!("mean(b) {} ", b.mean().unwrap());
-    Ok(())
+    println!("{x}");
+    }
+    println!("{x}");
+    println!("{x}");
+
+
+    
+    
 }
