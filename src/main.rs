@@ -1,3 +1,5 @@
+use std::sync::mpsc::Receiver;
+
 // Methods with More Parameters
 #[derive(Debug)]
 struct Rectangle {
@@ -12,6 +14,10 @@ impl Rectangle {
 
     fn can_hold(&self, other: &Rectangle) -> bool {
         self.width > other.width && self.height > other.height
+    }
+    
+    fn square(size: u32) -> Rectangle {
+        Rectangle { width: size , height: size }
     }
 }
 
@@ -31,6 +37,9 @@ fn main() {
         height: 45,
     };
 
+    let sq = Rectangle::square(3);
+
     println!("Can rect1 hold rect2? {} ", rect1.can_hold(&rect2));
     println!("Can rect1 hold rect3? {} ", rect2.can_hold(&rect3));
+    println!("Rectangle__Associated Functions {:#?}", sq);
 }
