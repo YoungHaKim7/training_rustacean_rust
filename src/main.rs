@@ -1,4 +1,4 @@
-// Defining and Instantiating Structs
+// "build_user" function that takes an email and username and returns a "User" instance
 
 struct User {
     active: bool, 
@@ -7,11 +7,21 @@ struct User {
     sign_in_count: u64
 }
 
+fn build_user(email: String, username: String) -> User {
+    User {
+        email: email,
+        username:username,
+        active: true,
+        sign_in_count: 1,
+    }
+}
 fn main () {
-    let user1 = User {
+    let mut user1 = User {
         email: String::from("someone@example.com"),
         username: String::from("someusername123"),
         active: true,
         sign_in_count: 1,
     };
+
+    user1.email = String::from("anotheremail@example.com");
 }
