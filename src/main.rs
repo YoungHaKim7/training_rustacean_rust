@@ -1,4 +1,4 @@
-// "build_user" function that takes an email and username and returns a "User" instance
+// Using the Field Init Shorthand
 
 struct User {
     active: bool, 
@@ -9,8 +9,8 @@ struct User {
 
 fn build_user(email: String, username: String) -> User {
     User {
-        email: email,
-        username:username,
+        email,
+        username,
         active: true,
         sign_in_count: 1,
     }
