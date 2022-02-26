@@ -1,19 +1,19 @@
-use std::sync::mpsc::Receiver;
 
-// Methods with More Parameters
+// Associated Functions
 #[derive(Debug)]
 struct Rectangle {
     width: u32,
     height: u32,
 }
+impl Rectangle {
+    fn can_hold(&self, other: &Rectangle) -> bool {
+        self.width > other.width && self.height > other.height
+    }
+}
 
 impl Rectangle {
     fn area(&self) -> u32 {
         self.width * self.height
-    }
-
-    fn can_hold(&self, other: &Rectangle) -> bool {
-        self.width > other.width && self.height > other.height
     }
     
     fn square(size: u32) -> Rectangle {
