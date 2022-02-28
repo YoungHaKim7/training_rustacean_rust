@@ -1,12 +1,33 @@
-// Enum std::net::IpAddr
-use std::net::{IpAddr, Ipv4Addr, Ipv6Addr};
+// Here's method named "call" that we could define on our "Message" enum
 
-fn main() {
-
-    let localhost_v4 = IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1));
-    let localhost_v6 = IpAddr::V6(Ipv6Addr::new(0,0,0,0,0,0,0,1));
-    
-    println!("{:?}", localhost_v4);
-    println!("{:?}", localhost_v6);
+enum Message {
+    Quit,
+    Move { x: i32, y: i32 },
+    Write(String),
+    ChangeColor(i32, i32, i32),
 }
 
+// unit struct
+struct QuitMessage;
+
+struct MoveMessage {
+    x: i32,
+    y: i32,
+}
+
+// tuple struct
+struct WriteMessage(String);
+
+// tuple struct
+struct ChangeColorMessage(i32, i32, i32);
+
+impl Message {
+    fn call(&self) {
+        // method body would be defined here
+    }
+}
+fn main() {
+    let m = Message::Write(String::from("Hello"));
+
+    m.call();
+}
