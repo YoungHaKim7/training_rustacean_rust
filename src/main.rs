@@ -1,31 +1,27 @@
-// Storing the data and "IpAddrKind" variant of an IP address using a "struct"
+// This new definithon of the "IpAddr" enum says the both "v4" and "v6" variants will have
+// associated "String" values.
+
 use std::fmt::Debug;
 
 #[derive(Debug)]
-enum IpAddrKind {
-    V4,
-    V6,
+enum IpAddr {
+    V4(String),
+    V6(String),
 }
 
-struct IpAddr {
-    kind: IpAddrKind,
-    address: String,
-}
+// struct IpAddr {
+//     kind: IpAddrKind,
+//     address: String,
+// }
 
-fn route(ip_kind: IpAddrKind) {}
+// fn route(ip_kind: IpAddrKind) {}
 
 fn main() {
-    let home = IpAddr {
-        kind: IpAddrKind::V4,
-        address: String::from("127.0.0.1"),
-    };
+    let home = IpAddr::V4(String::from("127.0.0.1"));
 
-    let loopback = IpAddr {
-        kind: IpAddrKind::V6,
-        address: String::from("::1"),
-    };
+    let loopback = IpAddr::V6(String::from("::1"));
 
-    println!("{:?}", home.address);
-    println!("{:?}", loopback.address);
+    println!("{:?}", home);
+    println!("{:?}", loopback);
 }
 
