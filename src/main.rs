@@ -1,11 +1,10 @@
-// This new definithon of the "IpAddr" enum says the both "v4" and "v6" variants will have
-// associated "String" values.
+// V4 vs V6 __Enums handle this case with ease:
 
 use std::fmt::Debug;
 
 #[derive(Debug)]
 enum IpAddr {
-    V4(String),
+    V4(u8, u8, u8, u8),
     V6(String),
 }
 
@@ -17,7 +16,7 @@ enum IpAddr {
 // fn route(ip_kind: IpAddrKind) {}
 
 fn main() {
-    let home = IpAddr::V4(String::from("127.0.0.1"));
+    let home = IpAddr::V4(127, 0, 0, 1);
 
     let loopback = IpAddr::V6(String::from("::1"));
 
