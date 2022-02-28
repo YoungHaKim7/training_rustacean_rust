@@ -1,26 +1,12 @@
-// V4 vs V6 __Enums handle this case with ease:
-
-use std::fmt::Debug;
-
-#[derive(Debug)]
-enum IpAddr {
-    V4(u8, u8, u8, u8),
-    V6(String),
-}
-
-// struct IpAddr {
-//     kind: IpAddrKind,
-//     address: String,
-// }
-
-// fn route(ip_kind: IpAddrKind) {}
+// Enum std::net::IpAddr
+use std::net::{IpAddr, Ipv4Addr, Ipv6Addr};
 
 fn main() {
-    let home = IpAddr::V4(127, 0, 0, 1);
 
-    let loopback = IpAddr::V6(String::from("::1"));
-
-    println!("{:?}", home);
-    println!("{:?}", loopback);
+    let localhost_v4 = IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1));
+    let localhost_v6 = IpAddr::V6(Ipv6Addr::new(0,0,0,0,0,0,0,1));
+    
+    println!("{:?}", localhost_v4);
+    println!("{:?}", localhost_v6);
 }
 
