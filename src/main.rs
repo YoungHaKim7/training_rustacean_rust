@@ -5,12 +5,12 @@ enum IpAddrKind {
     V6,
 }
 
-fn main() {
-    // We can create instances of each of the tow variants of "IpAddrKind" 
-    let four = IpAddrKind::V4;
-    let six = IpAddrKind::V6;
+fn route(ip_kind: IpAddrKind) {}
 
-    println!("{four:?}");
-    println!("{six:?}");
+fn main() {
+    // We can call this function with either variant:
+
+    println!("{:?}", route(IpAddrKind::V4));
+    println!("{:?}", route(IpAddrKind::V6));
 }
 
