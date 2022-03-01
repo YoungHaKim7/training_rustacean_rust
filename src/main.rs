@@ -1,16 +1,24 @@
-// For example, this code won't compile because it's tring to add an "i8" to an "Option<i8>"
+// An enum and a "match" expression that has the variants of the enum as its pattern
 
-enum Option<T> {
-    None,
-    Some(T),
+enum Coin {
+    Penny,
+    Nickel,
+    Dime,
+    Quarter,
+}
+
+fn value_in_cents(coin: Coin) -> u8 {
+    match coin {
+        Coin::Penny => {
+            println!("Lucky penny!");
+            1
+        }
+        Coin::Nickel => 5,
+        Coin::Dime => 10,
+        Coin::Quarter => 25,
+    }
 }
 
 fn main() {
-    let x: i8 = 5;
-    let y: Option<i8> = Some(5);
-
-    let sum = x + y;
-
-    println!("{sum:?}");
-}
-
+    value_in_cents(Coin::Penny);
+} 
