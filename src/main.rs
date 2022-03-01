@@ -1,12 +1,26 @@
-// Concise Control Flow with "if let"
+// If we wanted to count all non-quarter coins we see while also announcing the state of the quarters, we could do that with a "match" expression like this:
 //
+#[derive(Debug)]
+enum UsState {
+    Alabama,
+    Alaska,
+}
+
+enum Coin {
+    Penny,
+    Nickel,
+    Dime,
+    Quarter(UsState)
+}
+
+
+
 fn main() {
 
-    let config_max = Some(3u8);
-    match config_max {
-        Some(max) => println!("The maximum is configured to be {} ", max),
-        _ => (),
+    let coin = Coin::Quarter(UsState::Alaska);
+    let mut count = 0;
+    match coin {
+        Coin::Quarter(state) => println!("State quarter from {:?}!", state),
+        _ => count += 1,
     }
-
-    println!("{config_max:?}")
 }
