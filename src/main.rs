@@ -1,5 +1,4 @@
-// This enum is "Option<T>", and it is defined by the standard library as follows:
-//
+// For example, this code won't compile because it's tring to add an "i8" to an "Option<i8>"
 
 enum Option<T> {
     None,
@@ -7,11 +6,11 @@ enum Option<T> {
 }
 
 fn main() {
-    let some_number = Some(5);
-    let some_string = Some("a string");
+    let x: i8 = 5;
+    let y: Option<i8> = Some(5);
 
-    let absent_number: Option<i32> = None;
+    let sum = x + y;
 
-    println!("{some_number:?}");
+    println!("{sum:?}");
 }
 
