@@ -1,28 +1,18 @@
-// If we wanted to count all non-quarter coins we see while also announcing the state of the quarters, we could do that with a "match" expression like this:
-// same code
-
+// This enum is "Option<T>", and it is defined by the standard library as follows:
 #[derive(Debug)]
-enum UsState {
-    Alabama,
-    Alaska,
+enum Option<T> {
+    None,
+    Some(T),
 }
-
-enum Coin {
-    Penny,
-    Nickel,
-    Dime,
-    Quarter(UsState)
-}
-
-
 
 fn main() {
+    let some_number = Option::Some(5);
+    let some_string = Option::Some("a string".to_string());
 
-    let coin = Coin::Quarter(UsState::Alaska);
-    let mut count = 0;
-    if let Coin::Quarter(state) = coin {
-        println!("State quarter from {:?}!", state);
-    } else {
-        count += 1;
-    }
+    let absent_number: Option<i32> = Option::None;
+
+    println!("{some_number:?}");
+    println!("{some_string:?}");
+    println!("{absent_number:?}");
 }
+
