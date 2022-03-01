@@ -1,33 +1,17 @@
-// Here's method named "call" that we could define on our "Message" enum
+// This enum is "Option<T>", and it is defined by the standard library as follows:
+//
 
-enum Message {
-    Quit,
-    Move { x: i32, y: i32 },
-    Write(String),
-    ChangeColor(i32, i32, i32),
+enum Option<T> {
+    None,
+    Some(T),
 }
 
-// unit struct
-struct QuitMessage;
-
-struct MoveMessage {
-    x: i32,
-    y: i32,
-}
-
-// tuple struct
-struct WriteMessage(String);
-
-// tuple struct
-struct ChangeColorMessage(i32, i32, i32);
-
-impl Message {
-    fn call(&self) {
-        // method body would be defined here
-    }
-}
 fn main() {
-    let m = Message::Write(String::from("Hello"));
+    let some_number = Some(5);
+    let some_string = Some("a string");
 
-    m.call();
+    let absent_number: Option<i32> = None;
+
+    println!("{some_number:?}");
 }
+
