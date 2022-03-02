@@ -1,3 +1,15 @@
+// Bringing two types with the same name into the same scope requires using their parent modules.
+use std::fmt;
+use std::io;
+
+fn function1() -> fmt::Result {
+    // --snip--
+}
+
+fn function2() -> io::Result<()> {
+    // --snip--
+}
+
 // A struct with some public fields and some private fields
 mod front_of_house {
     pub mod hosting {
@@ -13,7 +25,6 @@ mod front_of_house {
 
         fn take_payment() {}
     }
-    
 }
 
 fn serve_order() {}
@@ -39,6 +50,7 @@ mod back_of_house {
     }
 }
 
+// Bringing the "add_to_waitlist" function into scope with "use", which is unidiomatic
 use crate::front_of_house::hosting;
 
 pub fn eat_at_restaurant() {
