@@ -4,9 +4,9 @@
 // Crates
 // Modules and use
 // Paths
-// Bringing "HashMap" into scope in an idiomatic way
-use rand::Rng;
+use std::collections::HashMap;
 
 fn main() {
-    let secret_number = rand::thread_rng().gen_range(1..101);
+    let mut map = HashMap::new();
+    map.insert(1, 2);
 }

@@ -2,11 +2,7 @@
 
 // A struct with some public fields and some private fields
 mod front_of_house {
-    pub mod hosting {
-        pub fn add_to_waitlist() {}
-
-        fn seat_at_table() {}
-    }
+    fn seat_at_table() {}
 
     mod serving {
         fn take_order() {}
@@ -41,12 +37,8 @@ mod back_of_house {
 }
 
 // Bringing the "add_to_waitlist" function into scope with "use", which is unidiomatic
-use crate::front_of_house::hosting;
 
 pub fn eat_at_restaurant() {
-    hosting::add_to_waitlist();
-    hosting::add_to_waitlist();
-    hosting::add_to_waitlist();
 
     // Order a breakfast in the summer with Rye toast
     let mut meal = back_of_house::Breakfast::summer("Rye");
