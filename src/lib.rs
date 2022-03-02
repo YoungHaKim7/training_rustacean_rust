@@ -1,14 +1,4 @@
-// Bringing two types with the same name into the same scope requires using their parent modules.
-use std::fmt;
-use std::io;
-
-fn function1() -> fmt::Result {
-    // --snip--
-}
-
-fn function2() -> io::Result<()> {
-    // --snip--
-}
+// Making a name available for any code to use from a new scope with "pub use"
 
 // A struct with some public fields and some private fields
 mod front_of_house {
