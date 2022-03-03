@@ -1,10 +1,8 @@
-// Using indexing syntax or the "get" method to access an item ina vector
+// Iterating over mutable references to elements in a vector
 fn main () {
-    let v = vec![1,2,3,4,5];
-
-    let first = &v[0];
-
-    v.push(6);
-
-    println!("The first element is : {}", first);
+    let mut v = vec![100, 32, 57];
+    for i in &mut v {
+        *i += 50;
+    }
+    println!("mut vec!! print: {:?}", v);
 }
