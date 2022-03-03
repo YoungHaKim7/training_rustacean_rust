@@ -1,9 +1,16 @@
-// Indexing into String 
+// Updating a Value Based on the Old Value
+use std::collections::HashMap;
 
 fn main() {
-    let hello = "здравствуйте";
-    for c in hello.chars() {
-        println!("{}", c)
+    let text = "Hello world wonderful world";
+
+    let mut map = HashMap::new();
+
+    for word in text.split_whitespace() {
+        let count = map.entry(word).or_insert(0);
+        *count += 1;
     }
+
+    println!("{:?}", map);
 
 }
