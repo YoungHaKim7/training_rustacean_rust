@@ -1,8 +1,20 @@
-// Iterating over mutable references to elements in a vector
-fn main () {
-    let mut v = vec![100, 32, 57];
-    for i in &mut v {
-        *i += 50;
-    }
-    println!("mut vec!! print: {:?}", v);
+// this code not working
+// When you're writing a program, if you don't know the exhaustive set of types the program will get at runtime to store in a vector, the enum technique won't work. Instead, you can use a trait object, which we'll cover in Chapter 17. 
+
+
+enum SpreadsheetCell {
+    Int(i32),
+    Float(f64),
+    Text(String),
 }
+
+fn main() {
+    let row = vec![
+        SpreadsheetCell:Int(3),
+        SpreadsheetCell:Text(String::from("blue")),
+        SpreadsheetCell:Float(10.12233),
+    ];
+
+    println!("row vec! print : {row}")
+} 
+  
