@@ -1,8 +1,9 @@
-// Appending a string slice to a "String" using the "push_str" method 
+// Indexing into String 
 
 fn main() {
-    let mut s = String::from("foo");
-    s.push_str("bar");
+    let hello = "здравствуйте";
+    for c in hello.chars() {
+        println!("{}", c)
+    }
 
-    println!("print s : {}", s);
 }
