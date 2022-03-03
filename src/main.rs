@@ -1,7 +1,12 @@
 // Creating a new Vector
 fn main () {
-    let v = vec![1, 2, 3];
+    let mut v = Vec::new();
 
-    println!("Vector print: {v:?}")
+    v.push(5);
+    v.push(6);
+    v.push(7);
+    v.push(8);
+
+    println!("Vector print: {v:?}");
 }
 
