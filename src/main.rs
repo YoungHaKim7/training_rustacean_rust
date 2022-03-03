@@ -1,12 +1,7 @@
-// Module system
-//
-// Packages
-// Crates
-// Modules and use
-// Paths
-use std::collections::HashMap;
+// Creating a new Vector
+fn main () {
+    let v = vec![1, 2, 3];
 
-fn main() {
-    let mut map = HashMap::new();
-    map.insert(1, 2);
+    println!("Vector print: {v:?}")
 }
+
