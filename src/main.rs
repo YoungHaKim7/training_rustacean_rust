@@ -1,11 +1,8 @@
 // A shorcut for Propagating Errors: the ? Operator
-// Using "fs::read_to_string" instead of opening and then reading the file
+// Where the "?" Operator Can Be Used
 
-use std::fs; 
-use std::io;
+use std::fs::File; 
 
-fn read_username_from_file() -> Result<String, io::Error> {
-    fs::read_to_string("hello.txt")
+fn main() {
+    let f = File::open("hello.txt")?;
 }
-
-fn main() {}
