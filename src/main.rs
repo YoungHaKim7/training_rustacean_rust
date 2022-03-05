@@ -1,13 +1,12 @@
-use tokio_test;
-use yahoo_finance_api as yahoo;
+// Opening File;
+//
+use std::fs::File; 
 
 fn main() {
-    let provider = yahoo::YahooConnector::new();
-    let resp = tokio_test::block_on(provider.search_ticker("Apple")).unwrap();
+    let f = File::open("hello.txt");
 
-    let mut apple_found = false;
-    println!("All tickers found while searching for 'Apple':");
-    for item in resp.quotes {
-        println!("{}", item.symbol)
-    }
+    let f = match f {
+        Ok(file) => file,
+        Err(error) => panic!("Problem opening the file: {:?}", error),
+    };
 }
