@@ -3,6 +3,7 @@
 
 use training_rustacean_rust::Tweet;
 use training_rustacean_rust::Summary;
+use training_rustacean_rust::NewsArticle;
 
 fn main() {
     let tweet = Tweet{
@@ -13,4 +14,14 @@ fn main() {
     };
 
     println!("1 new tweet : {}", tweet.summarize());
+
+    let article = NewsArticle {
+        headline: String::from("Penguins win the Stanley Cup Championship!"),
+        location: String::from("Pittsburgh, PA, USA"),
+        author: String::from("Iceburgh"),
+        content: String::from("The Pittsburgh Penguins once again are the best \
+            hockey team in the NHL."),
+    };
+
+    println!("News article available! {}", article.summarize());
 }
