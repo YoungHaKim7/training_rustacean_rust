@@ -6,5 +6,3 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-yahoo_finance_api = "1.2.2"
-tokio-test = "0.4.2"

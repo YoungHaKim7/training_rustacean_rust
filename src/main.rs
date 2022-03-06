@@ -1,10 +1,15 @@
-// Changing "main" to return "Result<(), E>" allow the use of the "?" operator on "Result" values
+// Generic Types, Traits.
+// Code to find the largest number in a list of numbers
+//
 
-use std::error::Error;
-use std::fs::File;
+fn main() {
+    let number_list = vec![34, 50, 25, 100, 65, 90];
 
-fn main() -> Result<(), Box<dyn Error>> {
-    let f = File::open("hello.txt")?;
+    let mut largest = number_list[0];
 
-    Ok(())
+    for number in number_list {
+        if number > largest {
+            largest = number;
+        }
+    }
 }
