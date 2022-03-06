@@ -1,10 +1,33 @@
-// Defining a trait
-//
-// Traits are similar to a featue often called interfaces in other languages, although with some differences.
-// A "Summary" trait that consists of the behavior provided by a "summarize" method
+// Implementing the "Summary" trait on the "NewsArticle" and "Tweet" types
+
+pub struct NewsArticle {
+    pub headline: String,
+    pub location: String,
+    pub author: String,
+    pub content: String,
+}
+
+impl Summary for NewsArticle {
+    fn summarize(&self) -> String {
+        format!("{}, by {} ({}),", self.headline, self.author, self.location)
+    }
+}
+
+pub struct Tweet {
+    pub username: String,
+    pub content: String,
+    pub reply: bool,
+    pub retweet: bool,
+}
+
+impl Summary for Tweet {
+    fn summarize(&self) -> String {
+        format!("{}: {}", self.username, self.content)
+    }
+}
 
 pub trait Summary {
-    fn summary(&self) -> String;
+    fn summarize(&self) -> String;
 }
 
 fn main() {}
