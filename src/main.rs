@@ -1,36 +1,24 @@
-// Generic Data Types.
-// Two functions that differ only in their names and the types in their signatures
-
-fn largest(list: &[i32]) -> i32 {
-    let mut largest = list[0];
-
-    for &item in list {
-        if item > largest {
-            largest = item;
-        }
-    }
-    largest
+// A method that uses different generic types from its struct's definition
+struct Point<X1, Y1> {
+    x: X1,
+    y: Y1,
 }
 
-fn largest_char(list: &[char]) -> char {
-    let mut largest = list[0];
 
-    for &item in list {
-        if item > largest {
-            largest = item;
+impl<X1, Y1> Point<X1, Y1> {
+    fn mixup<X2, Y2>(self, other: Point<X2, Y2>) -> Point<X1, Y2> {
+        Point {
+            x: self.x,
+            y: other.y
         }
     }
-    largest
 }
 
 fn main() {
-    let number_list = vec![34, 50, 25, 100, 65, 90];
+    let p1 = Point { x:5, y: 10.4 };
+    let p2 = Point { x: "Hello", y: 'c'};
 
-    let result = largest(&number_list);
-    println!("The largest number is {}", result);
+    let p3 = p1.mixup(p2);
 
-    let char_list = vec!['y', 'm', 'a', 'q'];
-
-    let result = largest_char(&char_list);
-    println!("The largest char is {}", result);
+    println!("p3.x = {}, p3.y = {}", p3.x, p3.y);
 }
