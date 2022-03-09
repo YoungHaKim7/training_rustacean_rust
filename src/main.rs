@@ -1,33 +1,17 @@
-struct Animal {
-    name: String,
+// verb
+
+trait DoThings {
+    fn do_one_thing(&self);
+    fn do_another_thing(&self);
 }
 
-//usually verbs, or adjectives
-trait Canine {
-    fn bark(&self) {
-        println!("Woof woof");
-    }
 
-    //    fn run(&self) {
-    //        println!("The dog is running");
-    //    }
-    //
-    fn run(&self);
+struct Man {
+    name:String,
 }
 
-impl Canine for Animal {
-// fn run(&self) {
-//     let my_number = 5;
-//     println!("Dog number {} is running", my_number);
-//     my_number
-// }
-}
+// impl DoThings for Man {}
 
 fn main() {
-    let rover = Animal {
-        name: "Rover".to_string(),
-    };
 
-    rover.bark();
-    rover.run();
 }
