@@ -1,17 +1,23 @@
+// Trait part5 - making trait useful with other trait 
+
 struct Monster {
     health: i32,
 }
 
+#[derive(Debug)]
 struct Wizard {}
+
+#[derive(Debug)]
 struct Ranger {}
 
 trait FightClose {
-    fn attack_with_sword(&self, opponent: &mut Monster) {
+    fn attack_with_sword(&self, opponent: &mut Monster) where Self: std::fmt::Debug {
         opponent.health -= 10;
         println!(
             "You attack with your sword. Your opponent has {} health left.",
             opponent.health
         );
+        println!("You are now in this condition: {:?}", self);
     }
 
     fn attack_with_hand(&self, opponent: &mut Monster) {
@@ -50,13 +56,14 @@ trait FightFromDistance {
 
 impl FightFromDistance for Ranger {}
 
+
 fn main() {
     let radagast = Wizard {};
     let aragorn = Ranger {};
 
     let mut uruk_hai = Monster {health: 40};
 
-    let distance = 18;
+    let distance = 8;
     radagast.attack_with_sword(&mut uruk_hai);
     aragorn.attack_with_bow(&mut uruk_hai, distance);
 }
