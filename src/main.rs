@@ -56,7 +56,7 @@ fn main() {
 
     let mut uruk_hai = Monster {health: 40};
 
-    let distance = 8;
+    let distance = 18;
     radagast.attack_with_sword(&mut uruk_hai);
     aragorn.attack_with_bow(&mut uruk_hai, distance);
 }
