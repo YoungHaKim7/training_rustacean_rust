@@ -14,5 +14,12 @@ trait Canine {
     }
 }
 
+impl Canine for Animal {}
 
-fn main () {}
+fn main () {
+    let rover = Animal {
+        name: "Rover".to_string()
+    };
+
+    rover.bark();
+}
