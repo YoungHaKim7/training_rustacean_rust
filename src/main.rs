@@ -1,4 +1,5 @@
 // Trait part5 - making trait useful with other trait 
+use std::fmt::Debug;
 
 struct Monster {
     health: i32,
@@ -10,7 +11,7 @@ struct Wizard {}
 #[derive(Debug)]
 struct Ranger {}
 
-trait FightClose {
+trait FightClose: Debug{
     fn attack_with_sword(&self, opponent: &mut Monster) where Self: std::fmt::Debug {
         opponent.health -= 10;
         println!(
