@@ -1,31 +1,16 @@
-#[derive(Debug)]
-struct Cat {
-    name: String,
-    age: u8,
+struct Monster {
+    health: i32
 }
 
-impl std::fmt::Display for Cat {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let cat_type = match self.age {
-            0..=2 => "kitten",
-            3..=10 => "adult cat",
-            _ => "old cat",
-        };
-        write!(
-            f,
-            "{} is a cat who is {} years old, and therefore a {}",
-            self.name, self.age, cat_type
-        )
+struct Wizard {}
+struct Ranger {}
+
+trait FightClose {
+    fn attack_with_sword(&self, opponent: &mut Monster) {
+        opponent.health -= 10;
+        println!("You attack with your sword. Your opponent has {} health left.", opponent.health);
     }
 }
 
-fn main() {
-    let mr_mantle = Cat {
-        name: "Reggie Mantle".to_string(),
-        age: 4,
-    };
-    println!(
-        "This many characters: {} ",
-        mr_mantle.to_string().chars().count()
-    );
-}
+
+fn main () {}
