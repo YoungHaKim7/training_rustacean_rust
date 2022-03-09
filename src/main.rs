@@ -1,17 +1,11 @@
-// verb
-
-trait DoThings {
-    fn do_one_thing(&self);
-    fn do_another_thing(&self);
+struct Numbers {
+    number1: u8,
+    number2: u8
 }
-
-
-struct Man {
-    name:String,
-}
-
-// impl DoThings for Man {}
 
 fn main() {
-
+    let my_number = Numbers {
+        number1: 8,
+        number2: 17,
+    };
 }
