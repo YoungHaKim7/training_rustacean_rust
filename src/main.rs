@@ -12,7 +12,12 @@ trait Canine {
     }
 }
 
-impl Canine for Animal {}
+impl Canine for Animal {
+    fn run(&self) {
+        let my_number = 5;
+        println!("Dog number {} is running", my_number);
+    }
+}
 
 fn main() {
     let rover = Animal {
