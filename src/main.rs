@@ -1,17 +1,18 @@
 // Trait part5 - making trait useful with other trait 
 use std::fmt::Debug;
+use std::clone::Clone;
 
 struct Monster {
     health: i32,
 }
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 struct Wizard {}
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 struct Ranger {}
 
-trait FightClose: Debug{
+trait FightClose: Debug + Clone {
     fn attack_with_sword(&self, opponent: &mut Monster) where Self: std::fmt::Debug {
         opponent.health -= 10;
         println!(
