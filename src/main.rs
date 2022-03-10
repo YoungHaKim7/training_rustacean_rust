@@ -1,71 +1,68 @@
-// Trait part5 - making trait useful with other trait 
 use std::fmt::Debug;
-use std::clone::Clone;
 
 struct Monster {
     health: i32,
 }
 
-#[derive(Clone, Debug)]
-struct Wizard {}
+#[derive(Debug)]
+struct Wizard {
+    health: i32,
+}
 
-#[derive(Clone, Debug)]
-struct Ranger {}
+#[derive(Debug)]
+struct Ranger {
+    health: i32,
+}
 
-trait FightClose: Debug + Clone {
-    fn attack_with_sword(&self, opponent: &mut Monster) where Self: std::fmt::Debug {
+trait Magic {}
+trait FightClose {}
+trait FightFromDistance {} // POWERS
+
+impl FightClose for Ranger {}
+impl FightClose for Wizard {}
+impl FightFromDistance for Ranger {}
+impl Magic for Wizard {}
+
+fn attack_with_bow<T: FightFromDistance + Debug>(
+    character: &T,
+    opponent: &mut Monster,
+    distance: u32,
+) {
+    if distance < 10 {
         opponent.health -= 10;
         println!(
-            "You attack with your sword. Your opponent has {} health left.",
-            opponent.health
-        );
-        println!("You are now in this condition: {:?}", self);
-    }
-
-    fn attack_with_hand(&self, opponent: &mut Monster) {
-        opponent.health -= 2;
-        println!(
-            "You attack with your opponent now has {} health left",
-            opponent.health
+            "You attack with your bow.
+        Your opponent now has {} health left.
+        You are now at: {:?}",
+            opponent.health, character
         );
     }
 }
 
-impl FightClose for Wizard {}
-impl FightClose for Ranger {}
-
-trait FightFromDistance {
-    fn attack_with_bow(&self, opponent: &mut Monster, distance: u32) {
-        if distance < 10 {
-            opponent.health -= 10;
-            println!(
-                "You attack with your bow. Your opponent has {} health left",
-                opponent.health
-            );
-        }
-    }
-
-    fn attack_with_rock(&self, opponent: &mut Monster, distance: u32) {
-        if distance < 3 {
-            opponent.health -= 4;
-            println!(
-                "You attack with your bow. Your opponent has {} health left",
-                opponent.health
-            );
-        }
-    }
+fn attack_with_sword<T: FightClose + Debug>(character: &T, opponent: &mut Monster) {
+    opponent.health -= 10;
+    println!(
+        "You attack with your sword.
+Your opponent now has {} health left. You are now at: {:?}",
+        opponent.health, character
+    );
 }
 
-impl FightFromDistance for Ranger {}
-
+fn fireball<T: Magic + Debug>(character: &T, opponent: &mut Monster, distance: u32) {
+    if distance < 15 {
+        opponent.health -= 20;
+        println!("You raise your hands and cast a fireball! Your opponent now has {} health left. You are now at: {:?}",
+        opponent.health, character);
+    }
+}
 
 fn main() {
-    let radagast = Wizard {};
-    let aragorn = Ranger {};
+    let radagast = Wizard { health: 60 };
+    let aragorn = Ranger { health: 80 };
 
-    let mut uruk_hai = Monster {health: 40};
+    let mut uruk_hai = Monster { health: 40 };
 
-    let distance = 8;
-    radagast.attack_with_sword(&mut uruk_hai);
-    aragorn.attack_with_bow(&mut uruk_hai, distance);
+    attack_with_bow(&aragorn, &mut uruk_hai, 8);
+    attack_with_sword(&radagast, &mut uruk_hai);
+    fireball(&radagast, &mut uruk_hai, 8)
 }
