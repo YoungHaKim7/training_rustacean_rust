@@ -1,23 +1,48 @@
-// Traits part 7 - understanding the From trait
+// Traits part8 - implementing the From trait
+// implementing From
 
-// The From trait
-use std::fmt::Display;
+use std::convert::From;
 
-fn print_vec<T: Display>(input: &Vec<T>) {
-    for item in input {
-        print!("{} ", item);
-    }
-    println!();
+#[derive(Debug)]
+struct City {
+    name: String,
+    population: u32,
 }
-fn main () {
 
-    let array_vec = Vec::from([8,9,10]);
-    print_vec(&array_vec);
+impl City {
+    fn new(name: &str, population: u32) -> Self {
+        Self {
+            name: name.to_string(),
+            population,
+        }
+    }
+}
 
+#[derive(Debug)]
+struct Country {
+    cities: Vec<City>,
+}
 
-    let str_vec = Vec::from("What kind of Vec will I be?");
-    print_vec(&str_vec);
+impl From<Vec<City>> for Country {
+    fn from(cities: Vec<City>) -> Self {
+        Self { cities }
+    }
+}
 
-    let string_vec = Vec::from(String::from("What kind of Vec of Vec will I be then?"));
-    print_vec(&string_vec);
+impl Country {
+    fn print_cities(&self) {
+        for city in &self.cities {
+        println!("{:?} has a population of {:?}", city.name, city.population);
+        }
+    }
+}
+
+fn main() {
+    let helsinki = City::new("Helsinki", 631_695);
+    let turku = City::new("Turku", 186_756);
+
+    let finland_cities = vec![helsinki, turku];
+    let finland = Country::from(finland_cities);
+
+    finland.print_cities();
 }
