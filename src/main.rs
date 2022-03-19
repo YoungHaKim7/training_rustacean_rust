@@ -1,48 +1,23 @@
-// Traits part8 - implementing the From trait
-// implementing From
-
-use std::convert::From;
-
-#[derive(Debug)]
-struct City {
-    name: String,
-    population: u32,
-}
-
-impl City {
-    fn new(name: &str, population: u32) -> Self {
-        Self {
-            name: name.to_string(),
-            population,
-        }
-    }
-}
-
-#[derive(Debug)]
-struct Country {
-    cities: Vec<City>,
-}
-
-impl From<Vec<City>> for Country {
-    fn from(cities: Vec<City>) -> Self {
-        Self { cities }
-    }
-}
-
-impl Country {
-    fn print_cities(&self) {
-        for city in &self.cities {
-        println!("{:?} has a population of {:?}", city.name, city.population);
-        }
-    }
-}
-
 fn main() {
-    let helsinki = City::new("Helsinki", 631_695);
-    let turku = City::new("Turku", 186_756);
+    let s = String::from("hello"); // s comes into scope
 
-    let finland_cities = vec![helsinki, turku];
-    let finland = Country::from(finland_cities);
+    take_ownership(s); // s's value moves into the function..
+    // ... and so is no longer valid here
 
-    finland.print_cities();
-}
+    let x = 5; // x comes into scope
+
+    makes_copy(x); // x would move into the function,
+    // but i32 is Copy, so it's okay to still
+    // use x afterward
+} // Here, x goes out of scope, then s. But because s's values was moved, nothing
+// special happens.
+
+
+fn take_ownership(some_string: String) { // some_string comes into scope
+    println!("{some_string}");
+} // Here, some_string goes out of scope and 'drop' is called. The backing
+// memory is freed
+
+fn makes_copy(some_integer: i32) { // some_integer comes into scope
+    println!("{some_integer}");
+}// Here, some_integer goes out scope. Nothing special happens.
