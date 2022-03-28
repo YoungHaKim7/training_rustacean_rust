@@ -1,21 +1,16 @@
-// Dropping a Value Early with "std::mem::drop"
+// Using "Rc<T>" to Share Data
 
-struct CustomSmartPointer {
-    data: String,
+use crate::List::{Cons, Nil};
+use std::rc::Rc;
+
+enum List {
+    Cons(i32, Rc<List>),
+    Nil,
 }
 
-impl Drop for CustomSmartPointer {
-    fn drop(&mut self) {
-        println!("Dropping CustomSmartPointer with data `{}`!", self.data);
-    }
-}
 
-fn main () {
-    let c = CustomSmartPointer {
-        data: String::from("some data"),
-    };
-    println!("CustomSmartPointers created. ");
-    drop(c);
-    println!("CustomSmartPointer dropped before the end of main.");
+fn main() {
+    let a = Rc::new(Cons(5, Rc::new(Cons(10, Rc::new(Nil)))));
+    let b = Cons(3, Rc::clone(&a));
+    let c = Cons(4, Rc::clone(&a));
 }
-
