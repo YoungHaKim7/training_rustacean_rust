@@ -1,12 +1,15 @@
-// The first attempt at defining an enum to represent a cons list data structure of "i32" values
+// Treating Smart Pointers Like Regular References with the "Deref" Trait
 
-enum List {
-    Cons(i32, Box<List>),
-    Nil,
-}
+// Note: there's one big difference between the MyBox<T> type we're about to build and the real Box<T>:our version will not store its data on the heap. We are focusing this example on "Deref", so where the data is actually stored is less important than the pointer-like behavior.
 
-use crate::List::{Cons, Nil};
 
-fn main() {
-    let list = Cons(1, Box::new(Cons(2, Box::new(Cons(3, Box::new(Nil))))));
+// Following the Pointer to th Value with the Dereference Operator
+
+
+fn main () {
+    let x = 5;
+    let y = &x;
+
+    assert_eq!(5, x);
+    assert_eq!(5, *y);
 }
