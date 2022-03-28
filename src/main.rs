@@ -1,21 +1,22 @@
-// Deref coercion allows Rust to handle these conversions for us automatically.
-use std::ops::Deref;
+// Running Code on Cleanup with the "Drop" Trait
 
-struct MyBox<T>(T);
+struct CustomSmartPointer {
+    data: String,
+}
 
-impl<T> Deref for MyBox<T> {
-    type Target = T;
-    
-    fn deref(&self) -> &Self::Target {
-        &self.0
+impl Drop for CustomSmartPointer {
+    fn drop(&mut self) {
+        println!("Dropping CustomSmartPointer with data `{}`!", self.data);
     }
 }
 
-fn hello(name: &str) {
-    println!("Hello, {name}");
+fn main () {
+    let c = CustomSmartPointer {
+        data: String::from("my stuff"),
+    };
+    let d = CustomSmartPointer {
+        data: String::from("other stuff"),
+    };
+    println!("CustomSmartPointers created. ");
 }
 
-fn main () {
-    let m = MyBox("Rust");
-    hello(&(*m)[..]);
-}
