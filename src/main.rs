@@ -1,23 +1,15 @@
+// Smart Pointers
+// A pointer is a general concept for a variable that contains an address in memory.
+// In Rust, the different smart pointers defined in the standard library provide functionality beyond that provided by references.
+// We've already encountered a few smart pointers in this book, such as "String" & "Vec<T>"in Chapter 8
+
+// We'll cover the most common smart pointers in the standard library:
+// "Box<T>" for allocating values on the heap
+// "Rc<T>", a reference counting type that enables multiple ownership
+// "Ref<T>" & "RefMut<T>", accessed through "RefCell<T>", a type that enforces the borrowing rules at runtime instead of compile time
+
+// Using "Box<T>" to Point to Data on the Heap
 fn main() {
-    let s = String::from("hello"); // s comes into scope
-
-    take_ownership(s); // s's value moves into the function..
-    // ... and so is no longer valid here
-
-    let x = 5; // x comes into scope
-
-    makes_copy(x); // x would move into the function,
-    // but i32 is Copy, so it's okay to still
-    // use x afterward
-} // Here, x goes out of scope, then s. But because s's values was moved, nothing
-// special happens.
-
-
-fn take_ownership(some_string: String) { // some_string comes into scope
-    println!("{some_string}");
-} // Here, some_string goes out of scope and 'drop' is called. The backing
-// memory is freed
-
-fn makes_copy(some_integer: i32) { // some_integer comes into scope
-    println!("{some_integer}");
-}// Here, some_integer goes out scope. Nothing special happens.
+    let b = Box::new(5);
+    println!("b = {b}");
+}
