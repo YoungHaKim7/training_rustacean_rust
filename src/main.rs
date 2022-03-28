@@ -1,4 +1,4 @@
-// Running Code on Cleanup with the "Drop" Trait
+// Dropping a Value Early with "std::mem::drop"
 
 struct CustomSmartPointer {
     data: String,
@@ -12,11 +12,10 @@ impl Drop for CustomSmartPointer {
 
 fn main () {
     let c = CustomSmartPointer {
-        data: String::from("my stuff"),
-    };
-    let d = CustomSmartPointer {
-        data: String::from("other stuff"),
+        data: String::from("some data"),
     };
     println!("CustomSmartPointers created. ");
+    drop(c);
+    println!("CustomSmartPointer dropped before the end of main.");
 }
 
