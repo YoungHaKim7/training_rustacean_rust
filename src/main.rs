@@ -1,4 +1,4 @@
-// Treating a Type Like a Reference by Implementing the "Deref" Trait
+// Deref coercion allows Rust to handle these conversions for us automatically.
 use std::ops::Deref;
 
 struct MyBox<T>(T);
@@ -11,11 +11,11 @@ impl<T> Deref for MyBox<T> {
     }
 }
 
-fn main () {
-    let x = 5;
-    let y = MyBox(x);
+fn hello(name: &str) {
+    println!("Hello, {name}");
+}
 
-    assert_eq!(5, x);
-    assert_eq!(5, *y);
-    // *(y.deref())
+fn main () {
+    let m = MyBox("Rust");
+    hello(&(*m)[..]);
 }
