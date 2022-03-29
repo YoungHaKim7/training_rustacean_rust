@@ -1,20 +1,14 @@
-// Cloning an Rc<T> Increase the Reference Count
-use crate::List::{Cons, Nil};
-use std::rc::Rc;
-enum List {
-    Cons(i32, Rc<List>),
-    Nil,
-}
+// Enforcing Borrowing Rules at Runtime with RefCell<T>
+// RefCell<T> and the Interior Mutability Pattern
+// Interior Mutability is a design pattern in Rust that allows you to mutate date even when there are immutable references to that data
+// Rc<T> enables multiple owners of the same data; Box<T> and RefCell<T> have single owners.
+// Box<T> allows immutable or mutable borrows checked at compile time; Rc<T> allows only immutable borrows checked at runtime.
+// Because RefCell<T> allows mutable borrows checked at runtime, you can mutate the value inside the RefCell<T> even when the RefCell<T> is immutable.
 
-fn main() {
-    let a = Rc::new(Cons(5, Rc::new(Cons(10, Rc::new(Nil)))));
-    println!("count after creating a = {}", Rc::strong_count(&a));
-    let b = Cons(3, Rc::clone(&a));
-    println!("count after creating b = {}", Rc::strong_count(&a));
-    {
-        let c = Cons(4, Rc::clone(&a));
-        println!("count after creating c = {}", Rc::strong_count(&a));
-    }
-    println!("count after c goes out of scope = {}", Rc::strong_count(&a));
-}
+// Interior Mutability: A Mutable Borrow to an Immutable Value.
 
+
+fn main () {
+    let x =5;
+    let y = &mut x;
+}
