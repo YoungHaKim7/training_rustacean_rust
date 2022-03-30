@@ -67,5 +67,5 @@ fn main() {
         "leaf strong = {}, weak = {}",
         Rc::strong_count(&leaf),
         Rc::weak_count(&leaf),
-);
+    );
 }
