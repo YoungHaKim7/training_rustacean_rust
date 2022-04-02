@@ -1,71 +1,19 @@
-// Reference Cycles Can Leak Memory
-// Creating a Reference Cycle
+// Creating a new thread to print one thing while the main thread prints something else
 
-use crate::List::{Cons, Nil};
-use std::cell::RefCell;
-use std::rc::{Rc, Weak};
-
-// Adding a Reference from a Child to Its Parent
-// Visualizing Changes to strong_count and weak_count
-
-#[derive(Debug)]
-struct Node {
-    value: i32,
-    parent: RefCell<Weak<Node>>,
-    children: RefCell<Vec<Rc<Node>>>,
-}
-
-enum List {
-    Cons(i32, RefCell<Rc<List>>),
-    Nil,
-}
-
-impl List {
-    fn tail(&self) -> Option<&RefCell<Rc<List>>> {
-        match self {
-            Cons(_, item) => Some(item),
-            Nil => None,
-        }
-    }
-}
+use std::time::Duration;
+use std::thread;
 
 fn main() {
-    let leaf = Rc::new(Node {
-        value: 3,
-        parent: RefCell::new(Weak::new()),
-        children: RefCell::new(vec![]),
-    });
+    thread::spawn(|| {
+        for i in 1..10 {
+            println!("hi number {i} form the spawned thread!");
+            thread::sleep(Duration::from_millis(1));
 
-    println!(
-        "leaf strong = {}, weak = {}",
-        Rc::strong_count(&leaf),
-        Rc::weak_count(&leaf),
-    );
-    {
-        let branch = Rc::new(Node {
-            value: 5,
-            parent: RefCell::new(Weak::new()),
-            children: RefCell::new(vec![Rc::clone(&leaf)]),
-        });
+    }});
 
-        *leaf.parent.borrow_mut() = Rc::downgrade(&branch);
-
-        println!(
-            "branch strong = {}, weak = {}",
-            Rc::strong_count(&branch),
-            Rc::weak_count(&branch),
-        );
-
-        println!(
-            "leaf strong = {}, weak = {}",
-            Rc::strong_count(&leaf),
-            Rc::weak_count(&leaf),
-        );
+    for i in 1..5 {
+        println!("hi number {i}");
+        thread::sleep(Duration::from_millis(1));
     }
-    println!("leaf parent = {:?}", leaf.parent.borrow().upgrade());
-    println!(
-        "leaf strong = {}, weak = {}",
-        Rc::strong_count(&leaf),
-        Rc::weak_count(&leaf),
-    );
 }
+
