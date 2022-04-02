@@ -1,4 +1,4 @@
-// Using Message Passing to Transfer Data Between Threads
+// Attempting to use "val" after we've sent it down the channel
 
 use std::{sync::mpsc, thread};
 
@@ -10,6 +10,7 @@ fn main() {
     thread::spawn(move || {
         let val = String::from("hi");
         tx.send(val).unwrap();
+        println!("val is {val}");
     });
 
     let received = rx.recv().unwrap();
