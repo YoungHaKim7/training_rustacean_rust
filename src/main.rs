@@ -1,15 +1,14 @@
-// Attempting to use a vector created by the main thread in another thread
+// Using Message Passing to Transfer Data Between Threads
 
-use std::thread;
+use std::{sync::mpsc, thread};
 
 fn main() {
-    let v = vec![1,2,3];
+    // tx = transmitter
+    // rx = receiver
+    let (tx, rx) = mpsc::channel();
 
-    let handle = thread::spawn(move || {
-        println!("Here's a vector : {v:?}");
+    thread::spawn(move || {
+        let val = String::from("hi");
+        tx.send(val).unwrap();
     });
-
-    handle.join().unwrap();
-
 }
-
