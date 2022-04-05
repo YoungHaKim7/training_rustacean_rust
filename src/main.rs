@@ -1,28 +1,20 @@
-// Atomic Reference Counting with Arc<T>
-// Fortunately, Arc<T> is type like "Rc<T>" that safe to use in concurrent situations.
-// Atomic Rc
-
-use std::sync::{Arc, Mutex};
-use std::thread;
-
+use std::any::Any;
+use std::fmt::Debug;
+fn do_stuff_depending<T: Any + Debug>(value: &T) {
+    // trait object
+    log(value);
+    println!("R:{}, G:{}, B:{}", RGB.0, RGB.1, RGB.2);
+}
 
 fn main() {
-    let counter = Arc::new(Mutex::new(0));
-    let mut handles = vec![];
+    let color = (183, 65, 14);
+    do_stuff_depending(&color);
 
-    for _ in 0..10 {
-        let counter = Arc::clone(&counter);
-        let handle = thread::spawn(move || {
-        let mut num = counter.lock().unwrap();
+    // let color = Color::HexRGB(12009742);
+    //    let color = Color::Named("Rust".to_string());
 
-        *num += 1;
-    });
-        handles.push(handle)
-    }
-    
-    for handle in handles {
-        handle.join().unwrap();
-    }
-
-    println!("Result: {}", *counter.lock().unwrap());
+    // match color {
+    //     Color::Named(s) => println!("{s}"),
+    //     Color::HexRGB(v) => println!("{v:#x}"),
+    // }
 }
