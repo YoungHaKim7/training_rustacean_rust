@@ -21,6 +21,6 @@ where
 // It's about programming to CAPABILITIES of Types via Constrains on Traits
 
 fn main() {
-    let a = dougs_func2(4.4, 5.5);
+    let a = dougs_func2(4.4, 5.5, "debug".to_string());
     println!("a has {a}");
 }
