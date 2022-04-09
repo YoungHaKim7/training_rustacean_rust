@@ -1,30 +1,80 @@
-use std::ops::{Deref, DerefMut};
+// Generics
 
-struct HoldsANumber(u8);
+// enum Option<T> {
+//     Some(T)
+//     None,
+// }
 
-impl HoldsANumber {
-    fn prints_the_number_times_two(&self) {
-        println!("{}", self.0 * 2);
+// enum Option<i32> {
+//     Some(i32)
+//     None,
+// }
+
+fn option_example(x: i32) -> Option<String> {
+    match x > 2 {
+        true => Some(String::from("result")),
+        false => None,
     }
 }
 
-impl Deref for HoldsANumber {
-    type Target = u8;
+// enum Result<T, E> {
+//     Ok(T),
+//     Err(E),
+// }
 
-    fn deref(&self) -> &Self::Target {
-        &self.0
-    }
+fn error_handling_example_1(dir: &str) {
+    println!("\n\n");
+
+    let mut list_cmd = std::process::Command::new("ls");
+
+    match list_cmd.current_dir(dir).status() {
+        Ok(cmd) => cmd,
+        Err(e) => panic!("Error: {e}"),
+    };
+
+    println!("\n\n");
 }
 
-impl DerefMut for HoldsANumber {
-    fn deref_mut(&mut self) -> &mut Self::Target {
-        &mut self.0
-    }
+enum Custom<T, U> {
+    EXAMPLE(T),
+    SAMPLE(U),
+}
+
+// Struct
+
+#[derive(Debug)]
+struct Rectangle<T> {
+    height: T,
+    width: T,
+}
+
+#[derive(Debug)]
+struct Cube<T, U, V> {
+    height: T,
+    width: U,
+    length: V,
 }
 
 fn main() {
-    let mut my_numuber = HoldsANumber(20);
-    *my_numuber = 30;
-    println!("{:?}", my_numuber.checked_sub(100));
-    my_numuber.prints_the_number_times_two();
+    let rect1 = Rectangle {
+        height: 1,
+        width: 2,
+    };
+    let rect2 = Rectangle {
+        height: 1.65,
+        width: 2.22,
+    };
+
+    let cube1 = Cube {
+        height: 1,
+        width: 2,
+        length: 3,
+    };
+    let cube2 = Cube {
+        height: 1.54,
+        width: 2,
+        length: 3.75,
+    };
+
+    println!("Rect1 = {rect1:?}");
 }
