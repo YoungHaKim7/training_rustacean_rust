@@ -1,5 +1,5 @@
 fn dougs_func<T>(input_a: T, input_b: T) -> T {
-    input_a
+    input_a + input_b
 }
 
 fn main() {
