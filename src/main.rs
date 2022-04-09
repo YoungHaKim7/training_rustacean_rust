@@ -1,20 +1,16 @@
-use std::any::Any;
-use std::fmt::Debug;
-fn do_stuff_depending<T: Any + Debug>(value: &T) {
-    // trait object
-    log(value);
-    println!("R:{}, G:{}, B:{}", RGB.0, RGB.1, RGB.2);
+use std::ops::Deref;
+
+#[derive(Debug)]
+struct HoldsANumber(u8);
+
+impl Deref for HoldsANumber {
+    type Target = u8;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
 }
-
-fn main() {
-    let color = (183, 65, 14);
-    do_stuff_depending(&color);
-
-    // let color = Color::HexRGB(12009742);
-    //    let color = Color::Named("Rust".to_string());
-
-    // match color {
-    //     Color::Named(s) => println!("{s}"),
-    //     Color::HexRGB(v) => println!("{v:#x}"),
-    // }
+fn main () {
+    let my_number = HoldsANumber(20);
+    println!("{:?}", *my_number + 20);
 }
