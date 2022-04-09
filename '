@@ -1,5 +1,5 @@
 #[derive(Debug)]
-enum SomeEnum<T> {
+enum SomeEnum {
     OptionA(T),
     OptionB(T),
     OptionC,
@@ -11,7 +11,7 @@ fn main() {
     match some_data {
         SomeEnum::OptionA(a) => println!("OptionA contains {}", a),
         SomeEnum::OptionB(b) => println!("OptionB contains {}", b),
-        SomeEnum::OptionC => println!("Boring option c : "),
+        SomeEnum::OptionC => println!("Boring option c : {}",),
     }
 
     let some_data2 = SomeEnum::OptionB('b');
