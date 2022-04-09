@@ -14,7 +14,10 @@
 // 4. No runtime cost
 // =--------
 // 1) Better abstract naming conventions
+
 // 2) Flexible use downstream
+// All done at Compile time, not Runtime
+// so No runtime cost for using generics
 
 struct Point<T> {
     x: T,
