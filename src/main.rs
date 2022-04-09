@@ -1,37 +1,25 @@
-trait SomeCustomTrait {
-    fn blah_blah(&self, a: &str, b: &str) -> String;
-}
-
+#[allow(dead_code)]
 #[derive(Debug)]
-struct DougsStruct {
-    something: i32,
+struct DougsStruct<T, U> {
+    dougs_t: T,
+    dougs_u: U,
 }
 
-impl SomeCustomTrait for DougsStruct {
-    fn blah_blah(&self, a: &str, b: &str) -> String {
-        self.something.to_string() + " - " + a + " - " + b
-    }
-}
-
-#[allow(debug_code)]
-fn do_this<T>(some_var: &T) -> String
+impl<T, U> DougsStruct<T, U>
 where
-    T: SomeCustomTrait,
+    T: std::fmt::Debug,
+    U: std::fmt::Debug,
 {
-    // Some complex logic
-    some_var.blah_blah("first", "second")
-}
-
-impl SomeCustomTrait for i32 {
-    fn blah_blah(&self, a: &str, b: &str) -> String {
-        "i32".to_string() + " - " + a + " - " + b
+    fn log_something(&self) {
+        println!("{:?}  {:?}", self.dougs_t, self.dougs_u);
     }
 }
 
 fn main() {
-    let test = DougsStruct { something: 1000 };
-    let result = do_this(&test);
+    let test = DougsStruct {
+        dougs_t: 5.6,
+        dougs_u: vec![1, 2, 3],
+    };
 
-    let testi32 = 18;
-    let result = do_this(&testi32);
+    test.log_something();
 }
