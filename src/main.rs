@@ -19,9 +19,9 @@
 // All done at Compile time, not Runtime
 // so No runtime cost for using generics
 
-struct Point<T> {
-    x: T,
-    y: T,
+struct Point<A> {
+    x: A,
+    y: A,
 }
 
 fn main() {
