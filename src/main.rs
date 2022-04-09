@@ -63,6 +63,9 @@ fn sum_of_numbers<T: std::ops::Mul<Output = T>>(num1: T, num2: T) -> T {
     num1 * num2
 }
 
+fn lookup_datatype<T>(object: T) {
+    println!("{}", std::any::type_name::<T>());
+}
 fn main() {
     let rect1 = Rectangle {
         height: 1,
@@ -87,4 +90,8 @@ fn main() {
     println!("Rect1 = {rect1:?}");
 
     println!("{}", sum_of_numbers(4, 5));
+
+    lookup_datatype(1);
+    lookup_datatype(1.96);
+    lookup_datatype("string good");
 }
