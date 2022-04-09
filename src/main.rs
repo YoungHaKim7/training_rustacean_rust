@@ -55,6 +55,14 @@ struct Cube<T, U, V> {
     length: V,
 }
 
+// Functions
+
+// fn generic_function<T>(object: T) -> T {}
+
+fn sum_of_numbers<T: std::ops::Mul<Output = T>>(num1: T, num2: T) -> T {
+    num1 * num2
+}
+
 fn main() {
     let rect1 = Rectangle {
         height: 1,
@@ -77,4 +85,6 @@ fn main() {
     };
 
     println!("Rect1 = {rect1:?}");
+
+    println!("{}", sum_of_numbers(4, 5));
 }
