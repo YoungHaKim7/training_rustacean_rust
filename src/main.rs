@@ -6,6 +6,13 @@
 //     x: f64,
 //     y: f64,
 // }
+// Rust Generics
+// Why use generics
+// 1. Abstract Types (aka placeholder types)
+// 2. Adds Flexibility
+// 3. Reduces Code Duplication
+// 4. No runtime cost
+
 struct Point<T> {
     x: T,
     y: T,
