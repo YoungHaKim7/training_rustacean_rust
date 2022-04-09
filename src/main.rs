@@ -12,6 +12,9 @@
 // 2. Adds Flexibility
 // 3. Reduces Code Duplication
 // 4. No runtime cost
+// =--------
+// 1) Better abstract naming conventions
+// 2) Flexible use downstream
 
 struct Point<T> {
     x: T,
