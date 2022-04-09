@@ -1,7 +1,12 @@
-use std::ops::Deref;
+use std::ops::{Deref, DerefMut};
 
-#[derive(Debug)]
 struct HoldsANumber(u8);
+
+impl HoldsANumber {
+    fn prints_the_number_times_two(&self) {
+        println!("{}", self.0 * 2);
+    }
+}
 
 impl Deref for HoldsANumber {
     type Target = u8;
@@ -10,7 +15,16 @@ impl Deref for HoldsANumber {
         &self.0
     }
 }
-fn main () {
-    let my_number = HoldsANumber(20);
-    println!("{:?}", *my_number + 20);
+
+impl DerefMut for HoldsANumber {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.0
+    }
+}
+
+fn main() {
+    let mut my_numuber = HoldsANumber(20);
+    *my_numuber = 30;
+    println!("{:?}", my_numuber.checked_sub(100));
+    my_numuber.prints_the_number_times_two();
 }
