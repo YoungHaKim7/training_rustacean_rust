@@ -1,25 +1,25 @@
-#[allow(dead_code)]
-#[derive(Debug)]
-struct DougsStruct<T, U> {
-    dougs_t: T,
-    dougs_u: U,
-}
+use std::cmp::PartialOrd;
 
-impl<T, U> DougsStruct<T, U>
+fn largest<T>(list: &[T]) -> T
 where
-    T: std::fmt::Debug,
-    U: std::fmt::Debug,
+    T: PartialOrd + Copy,
 {
-    fn log_something(&self) {
-        println!("{:?}  {:?}", self.dougs_t, self.dougs_u);
+    let mut largest = list[0];
+
+    for &item in list {
+        if item > largest {
+            largest = item;
+        }
     }
+    largest
 }
 
 fn main() {
-    let test = DougsStruct {
-        dougs_t: 5.6,
-        dougs_u: vec![1, 2, 3],
-    };
+    let number_list = vec![23, 60, 30, 320, 100];
+    let result = largest(&number_list);
+    println!("The largest number is {result}");
 
-    test.log_something();
+    let char_list = vec!['y', 'm', 'a', 'q'];
+    let result2 = largest(&char_list);
+    println!("The largest char is {result2}");
 }
