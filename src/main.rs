@@ -1,29 +1,27 @@
-//default
-pub trait MyTrait {
-    fn sum(&self) -> u32 {
-        10
+struct MyStruct {
+    a: i32,
+    b: i32,
+}
+
+impl std::fmt::Display for MyStruct {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "({}, {})", self.a, self.b)
     }
 }
 
-struct MyStruct {}
-impl MyTrait for MyStruct {}
-
-struct MyStruct2 {
-    size: u32,
+pub trait PrintValue {
+    fn print_value(&self);
 }
 
-impl MyTrait for MyStruct2 {
-    fn sum(&self) -> u32 {
-        self.size
+impl<T: std::fmt::Display> PrintValue for T {
+    fn print_value(&self) {
+        println!("{self}");
     }
-}
-
-fn print_sum(m: &impl MyTrait) {
-    println!("sum: {}", m.sum());
 }
 
 fn main() {
-    let my_struct = MyStruct {};
-
-    print_sum(&my_struct);
+    let m1 = MyStruct { a: 10, b: 12 };
+    m1.print_value();
+    let m2 = String::from("Hello");
+    m2.print_value();
 }
