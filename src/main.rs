@@ -1,25 +1,16 @@
-use std::cmp::PartialOrd;
+pub trait MyTrait {
+    fn sum(&self) -> u32;
+}
 
-fn largest<T>(list: &[T]) -> T
-where
-    T: PartialOrd + Copy,
-{
-    let mut largest = list[0];
-
-    for &item in list {
-        if item > largest {
-            largest = item;
-        }
+struct MyStruct {}
+impl MyTrait for MyStruct {
+    fn sum(&self) -> u32 {
+        10
     }
-    largest
 }
 
 fn main() {
-    let number_list = vec![23, 60, 30, 320, 100];
-    let result = largest(&number_list);
-    println!("The largest number is {result}");
+    let my_struct = MyStruct {};
 
-    let char_list = vec!['y', 'm', 'a', 'q'];
-    let result2 = largest(&char_list);
-    println!("The largest char is {result2}");
+    println!("sum: {}", my_struct.sum());
 }
