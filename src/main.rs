@@ -1,22 +1,9 @@
 fn main() {
-    let mut my_name = String::with_capacity(26);
-    println!(
-        "Length is {} and capacity is : {}",
-        my_name.len(),
-        my_name.capacity()
-    );
+    let mut my_number = 9;
+    let num_ref = &mut my_number;
 
-    my_name.push_str("David!");
-    println!(
-        "Length is {} and capacity is : {}",
-        my_name.len(),
-        my_name.capacity()
-    );
+    *num_ref = 10;
 
-    my_name.push_str(" and I live in Seoul");
-    println!(
-        "Length is {} and capacity is : {}",
-        my_name.len(),
-        my_name.capacity()
-    );
+    println!("Number is now {my_number}");
 }
+
