@@ -1,23 +1,22 @@
 # 변수 선언
-# 빌드 변수 
 CC=g++
-
-# 옵션 변수
 CFLAGS= -o
-
-# 오브젝트 변수 
-OBJS=main.o function.o
-
-# 타겟 변수 
+OBJS=main.o function_test.o
 TARGET=main
 
-# 변수를 사용하려면 $ 를 사용한다. 
-$(TARGET): $(OBJS)
+# 실행 파일 만드는 타겟팅 
+all: $(TARGET)
 
-# $@ 은 현재 Target 이름을 뜻한다.
+# make clean의 명령어를 수행.
+clean:
+	rm -rf *.o
+	rm -rf $(TARGET)
+
+
+$(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) $@ $(OBJS)
 
-# 오브젝트 생성 
-main.o : function.h main.cpp
-function.o: function.h function.cpp
+# 의존성 오브젝트 생성 
+main.o : function_test.h main.cpp
+function_test.o: function_test.h function_test.cpp
 

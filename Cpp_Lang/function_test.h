@@ -3,4 +3,4 @@
 
 using namespace std;
 
-void function();
+void function_test();
