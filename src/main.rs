@@ -1,14 +1,24 @@
-// & immutable reference / shared reference
-// &mut mutable reference / unique reference
-// & *
+use std::time::Instant;
 
-fn main() {
-    let mut my_number = 9;
-    let num_ref = &mut &mut my_number;
+const N: u64 = 100_000_000;
 
-    **num_ref = 10;
-    // &mut mutable reference / unique reference
-
-    println!("Number is now {my_number}");
+fn calculate_pi(n_terms: u64) -> f64 {
+    let numerator = 4.0;
+    let mut denominator = 1.0;
+    let mut operation = 1.0;
+    let mut pi = 0.0;
+    for _ in 0..n_terms {
+        pi += operation * (numerator / denominator);
+        denominator += 2.0;
+        operation *= -1.0;
+    }
+    pi
 }
 
+fn main() {
+    let start = Instant::now();
+    let pi = calculate_pi(N);
+    let duration = start.elapsed();
+    println!("{pi}");
+    println!("Time elapsed : {:.2} seconds! ", duration.as_secs_f64());
+}
