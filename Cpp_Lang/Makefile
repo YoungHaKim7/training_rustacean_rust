@@ -1,10 +1,11 @@
-main.out : main.o function_test.o
+a.out : Calculator.o CalculatorTutorial.o
 
-	g++ -o main.out main.o function_test.o
+	g++ a.out Calculator.o CalculatorTutorial.o
 
-main.o : function_test.h main.cpp
 
-function_test.o: function_test.h function_test.cpp
+Calculator.o : Calculator.h CalculatorTutorial.cpp
+
+CalculatorTutorial.o: Calculator.h Calculator.cpp
 
 # make clean의 명령어를 수행.
 clean:
