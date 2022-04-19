@@ -16,15 +16,14 @@ body { font-family: monospace; color: #abb2bf; background-color: #1f2227; }
 .Delimiter { color: #abb2bf; }
 .String { color: #98c379; }
 .Function { color: #61afef; }
-.Identifier { color: #abb2bf; }
+.Macro { color: #c678dd; }
 .LineNr { color: #4b5263; }
 .Include { color: #c678dd; }
-.PreProc { color: #c678dd; }
+.Type { color: #e5c07b; font-weight: bold; }
 .Operator { color: #c678dd; }
 .Keyword { color: #c678dd; }
-.Macro { color: #c678dd; }
+.StorageClass { color: #56b6c2; }
 .Special { color: #c678dd; }
-.Type { color: #e5c07b; font-weight: bold; }
 -->
 </style>
 
@@ -59,27 +58,26 @@ if ('onhashchange' in window) {
 </head>
 <body onload='JumpToLine();'>
 <pre id='vimCodeElement'>
-<span id="L1" class="LineNr"> 1 </span><span class="Keyword">use</span> <span class="Include">std</span><span class="Delimiter">::</span><span class="Include">borrow</span><span class="Delimiter">::</span>Cow;
+<span id="L1" class="LineNr"> 1 </span><span class="Keyword">use</span> <span class="Include">std</span><span class="Delimiter">::</span><span class="Include">any</span><span class="Delimiter">::</span>type_name;
 <span id="L2" class="LineNr"> 2 </span>
-<span id="L3" class="LineNr"> 3 </span><span class="PreProc">#[</span><span class="PreProc">derive(</span><span class="Type">Debug</span><span class="PreProc">)</span><span class="PreProc">]</span>
-<span id="L4" class="LineNr"> 4 </span><span class="Keyword">struct</span> <span class="Identifier">User</span><span class="Operator">&lt;</span><span class="Special">'a</span><span class="Operator">&gt;</span> {
-<span id="L5" class="LineNr"> 5 </span>    name: Cow<span class="Operator">&lt;</span><span class="Special">'a</span>, <span class="Type">str</span><span class="Operator">&gt;</span>,
-<span id="L6" class="LineNr"> 6 </span>}
-<span id="L7" class="LineNr"> 7 </span>
-<span id="L8" class="LineNr"> 8 </span><span class="Keyword">fn</span> <span class="Function">main</span>() {
-<span id="L9" class="LineNr"> 9 </span>    <span class="Keyword">let</span> name_1 <span class="Operator">=</span> <span class="String">&quot;User 1&quot;</span>;
-<span id="L10" class="LineNr">10 </span>    <span class="Keyword">let</span> name_2 <span class="Operator">=</span> <span class="String">&quot;User 2&quot;</span>.<span class="Function">to_string</span>();
+<span id="L3" class="LineNr"> 3 </span><span class="Keyword">fn</span> <span class="Function">type_of</span><span class="Operator">&lt;</span>T<span class="Operator">&gt;</span>(_: T) <span class="Operator">-&gt;</span> <span class="StorageClass">&amp;</span><span class="Special">'static</span> <span class="Type">str</span> {
+<span id="L4" class="LineNr"> 4 </span>    <span class="Function">type_name</span><span class="Delimiter">::</span><span class="Operator">&lt;</span>T<span class="Operator">&gt;</span>()
+<span id="L5" class="LineNr"> 5 </span>}
+<span id="L6" class="LineNr"> 6 </span>
+<span id="L7" class="LineNr"> 7 </span><span class="Keyword">fn</span> <span class="Function">main</span>() {
+<span id="L8" class="LineNr"> 8 </span>    <span class="Keyword">let</span> my_name <span class="Operator">=</span> <span class="String">&quot;Billybrobby&quot;</span>;
+<span id="L9" class="LineNr"> 9 </span>    <span class="Keyword">let</span> my_country <span class="Operator">=</span> <span class="String">&quot;USA&quot;</span>;
+<span id="L10" class="LineNr">10 </span>    <span class="Keyword">let</span> my_home <span class="Operator">=</span> <span class="String">&quot;Korea&quot;</span>;
 <span id="L11" class="LineNr">11 </span>
-<span id="L12" class="LineNr">12 </span>    <span class="Keyword">let</span> user_1 <span class="Operator">=</span> User {
-<span id="L13" class="LineNr">13 </span>        name: name_1.<span class="Function">into</span>(),
-<span id="L14" class="LineNr">14 </span>    };
-<span id="L15" class="LineNr">15 </span>
-<span id="L16" class="LineNr">16 </span>    <span class="Keyword">let</span> user_2 <span class="Operator">=</span> User {
-<span id="L17" class="LineNr">17 </span>        name: name_2.<span class="Function">into</span>(),
-<span id="L18" class="LineNr">18 </span>    };
-<span id="L19" class="LineNr">19 </span>
-<span id="L20" class="LineNr">20 </span>    <span class="Macro">println!</span>(<span class="String">&quot;User 1 is {user_1:?} and User 2 is {user_2:?}&quot;</span>);
-<span id="L21" class="LineNr">21 </span>}
+<span id="L12" class="LineNr">12 </span>    <span class="Macro">println!</span>(<span class="String">&quot;{}&quot;</span>, <span class="Function">type_of</span>(my_name));
+<span id="L13" class="LineNr">13 </span>    <span class="Keyword">let</span> together <span class="Operator">=</span> <span class="Macro">format!</span>(
+<span id="L14" class="LineNr">14 </span>        <span class="String">&quot;I am {} and I come from {} but I live in {}.&quot;</span>,
+<span id="L15" class="LineNr">15 </span>        my_name, my_country, my_home
+<span id="L16" class="LineNr">16 </span>    );
+<span id="L17" class="LineNr">17 </span>    <span class="Keyword">let</span> my_string: <span class="Type">String</span> <span class="Operator">=</span> <span class="String">&quot;Try to make this a String&quot;</span>.<span class="Function">into</span>();
+<span id="L18" class="LineNr">18 </span>    <span class="Macro">println!</span>(<span class="String">&quot;{my_string}&quot;</span>);
+<span id="L19" class="LineNr">19 </span>}
+<span id="L20" class="LineNr">20 </span>
 </pre>
 </body>
 </html>
