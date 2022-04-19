@@ -1,10 +1,21 @@
-use std::str;
+use std::borrow::Cow;
+
+#[derive(Debug)]
+struct User<'a> {
+    name: Cow<'a, str>,
+}
 
 fn main() {
-    for b in "안녕 ".bytes() {
-        println!("{}", b);
-    }
-    let a = vec![236, 149, 136, 235, 133, 149, 32];
-    let a = str::from_utf8(&a).unwrap();
-    println!("{a}");
+    let name_1 = "User 1";
+    let name_2 = "User 2".to_string();
+
+    let user_1 = User {
+        name: name_1.into(),
+    };
+
+    let user_2 = User {
+        name: name_2.into(),
+    };
+
+    println!("User 1 is {user_1:?} and User 2 is {user_2:?}");
 }

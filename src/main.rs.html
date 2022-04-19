@@ -14,17 +14,16 @@ pre { font-family: monospace; color: #abb2bf; background-color: #1f2227; }
 body { font-family: monospace; color: #abb2bf; background-color: #1f2227; }
 * { font-size: 1em; }
 .Delimiter { color: #abb2bf; }
-.Number { color: #d19a66; }
-.Function { color: #61afef; }
-.Macro { color: #c678dd; }
-.LineNr { color: #4b5263; }
 .String { color: #98c379; }
+.Function { color: #61afef; }
+.Identifier { color: #abb2bf; }
+.LineNr { color: #4b5263; }
 .Include { color: #c678dd; }
-.Conditional { color: #c678dd; }
+.PreProc { color: #c678dd; }
 .Operator { color: #c678dd; }
 .Keyword { color: #c678dd; }
-.Float { color: #d19a66; }
-.StorageClass { color: #56b6c2; }
+.Macro { color: #c678dd; }
+.Special { color: #c678dd; }
 .Type { color: #e5c07b; font-weight: bold; }
 -->
 </style>
@@ -60,30 +59,27 @@ if ('onhashchange' in window) {
 </head>
 <body onload='JumpToLine();'>
 <pre id='vimCodeElement'>
-<span id="L1" class="LineNr"> 1 </span><span class="Keyword">use</span> <span class="Include">std</span><span class="Delimiter">::</span><span class="Include">time</span><span class="Delimiter">::</span>Instant;
+<span id="L1" class="LineNr"> 1 </span><span class="Keyword">use</span> <span class="Include">std</span><span class="Delimiter">::</span><span class="Include">borrow</span><span class="Delimiter">::</span>Cow;
 <span id="L2" class="LineNr"> 2 </span>
-<span id="L3" class="LineNr"> 3 </span><span class="StorageClass">const</span> N: <span class="Type">u64</span> <span class="Operator">=</span> <span class="Number">100_000_000</span>;
-<span id="L4" class="LineNr"> 4 </span>
-<span id="L5" class="LineNr"> 5 </span><span class="Keyword">fn</span> <span class="Function">calculate_pi</span>(n_terms: <span class="Type">u64</span>) <span class="Operator">-&gt;</span> <span class="Type">f64</span> {
-<span id="L6" class="LineNr"> 6 </span>    <span class="Keyword">let</span> numerator <span class="Operator">=</span> <span class="Float">4.0</span>;
-<span id="L7" class="LineNr"> 7 </span>    <span class="Keyword">let</span> <span class="StorageClass">mut</span> denominator <span class="Operator">=</span> <span class="Float">1.0</span>;
-<span id="L8" class="LineNr"> 8 </span>    <span class="Keyword">let</span> <span class="StorageClass">mut</span> operation <span class="Operator">=</span> <span class="Float">1.0</span>;
-<span id="L9" class="LineNr"> 9 </span>    <span class="Keyword">let</span> <span class="StorageClass">mut</span> pi <span class="Operator">=</span> <span class="Float">0.0</span>;
-<span id="L10" class="LineNr">10 </span>    <span class="Conditional">for</span> _ <span class="Keyword">in</span> <span class="Number">0</span>..n_terms {
-<span id="L11" class="LineNr">11 </span>        pi <span class="Operator">+=</span> operation <span class="Operator">*</span> (numerator <span class="Operator">/</span> denominator);
-<span id="L12" class="LineNr">12 </span>        denominator <span class="Operator">+=</span> <span class="Float">2.0</span>;
-<span id="L13" class="LineNr">13 </span>        operation <span class="Operator">*=</span> <span class="Operator">-</span><span class="Float">1.0</span>;
-<span id="L14" class="LineNr">14 </span>    }
-<span id="L15" class="LineNr">15 </span>    pi
-<span id="L16" class="LineNr">16 </span>}
-<span id="L17" class="LineNr">17 </span>
-<span id="L18" class="LineNr">18 </span><span class="Keyword">fn</span> <span class="Function">main</span>() {
-<span id="L19" class="LineNr">19 </span>    <span class="Keyword">let</span> start <span class="Operator">=</span> <span class="Include">Instant</span><span class="Delimiter">::</span><span class="Function">now</span>();
-<span id="L20" class="LineNr">20 </span>    <span class="Keyword">let</span> pi <span class="Operator">=</span> <span class="Function">calculate_pi</span>(N);
-<span id="L21" class="LineNr">21 </span>    <span class="Keyword">let</span> duration <span class="Operator">=</span> start.<span class="Function">elapsed</span>();
-<span id="L22" class="LineNr">22 </span>    <span class="Macro">println!</span>(<span class="String">&quot;{pi}&quot;</span>);
-<span id="L23" class="LineNr">23 </span>    <span class="Macro">println!</span>(<span class="String">&quot;Time elapsed : {:.2} seconds! &quot;</span>, duration.<span class="Function">as_secs_f64</span>());
-<span id="L24" class="LineNr">24 </span>}
+<span id="L3" class="LineNr"> 3 </span><span class="PreProc">#[</span><span class="PreProc">derive(</span><span class="Type">Debug</span><span class="PreProc">)</span><span class="PreProc">]</span>
+<span id="L4" class="LineNr"> 4 </span><span class="Keyword">struct</span> <span class="Identifier">User</span><span class="Operator">&lt;</span><span class="Special">'a</span><span class="Operator">&gt;</span> {
+<span id="L5" class="LineNr"> 5 </span>    name: Cow<span class="Operator">&lt;</span><span class="Special">'a</span>, <span class="Type">str</span><span class="Operator">&gt;</span>,
+<span id="L6" class="LineNr"> 6 </span>}
+<span id="L7" class="LineNr"> 7 </span>
+<span id="L8" class="LineNr"> 8 </span><span class="Keyword">fn</span> <span class="Function">main</span>() {
+<span id="L9" class="LineNr"> 9 </span>    <span class="Keyword">let</span> name_1 <span class="Operator">=</span> <span class="String">&quot;User 1&quot;</span>;
+<span id="L10" class="LineNr">10 </span>    <span class="Keyword">let</span> name_2 <span class="Operator">=</span> <span class="String">&quot;User 2&quot;</span>.<span class="Function">to_string</span>();
+<span id="L11" class="LineNr">11 </span>
+<span id="L12" class="LineNr">12 </span>    <span class="Keyword">let</span> user_1 <span class="Operator">=</span> User {
+<span id="L13" class="LineNr">13 </span>        name: name_1.<span class="Function">into</span>(),
+<span id="L14" class="LineNr">14 </span>    };
+<span id="L15" class="LineNr">15 </span>
+<span id="L16" class="LineNr">16 </span>    <span class="Keyword">let</span> user_2 <span class="Operator">=</span> User {
+<span id="L17" class="LineNr">17 </span>        name: name_2.<span class="Function">into</span>(),
+<span id="L18" class="LineNr">18 </span>    };
+<span id="L19" class="LineNr">19 </span>
+<span id="L20" class="LineNr">20 </span>    <span class="Macro">println!</span>(<span class="String">&quot;User 1 is {user_1:?} and User 2 is {user_2:?}&quot;</span>);
+<span id="L21" class="LineNr">21 </span>}
 </pre>
 </body>
 </html>
