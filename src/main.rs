@@ -5,16 +5,16 @@ fn type_of<T>(_: T) -> &'static str {
 }
 
 fn main() {
-    let my_name = "Billybrobby";
-    let my_country = "USA";
-    let my_home = "Korea";
+    let string_1 = String::from("Hello world");
+    let string_2 = "Hello world".to_string();
+    let string_3 = "Hello world";
+    let string_4: String = "Hello world".into();
+    let string_5 = "Hello world".to_owned();
 
-    println!("{}", type_of(my_name));
-    let together = format!(
-        "I am {} and I come from {} but I live in {}.",
-        my_name, my_country, my_home
-    );
-    let my_string: String = "Try to make this a String".into();
-    println!("{my_string}");
+    println!("{}", type_of(string_1));
+    println!("{}", type_of(string_2));
+    println!("{}", type_of(string_3));
+    println!("{}", type_of(string_4));
+    println!("{}", type_of(string_5));
 }
 
