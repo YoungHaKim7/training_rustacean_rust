@@ -1,20 +1,15 @@
-use std::any::type_name;
-
-fn type_of<T>(_: T) -> &'static str {
-    type_name::<T>()
+fn append_string(buffer: &mut Vec<u8>, data: &str) {
+    for value in data.bytes() {
+        buffer.push(value)
+    }
 }
 
 fn main() {
-    let string_1 = String::from("Hello world");
-    let string_2 = "Hello world".to_string();
-    let string_3 = "Hello world";
-    let string_4: String = "Hello world".into();
-    let string_5 = "Hello world".to_owned();
+    let mut buffer = Vec::new();
+    append_string(&mut buffer, "안녕 ");
 
-    println!("{}", type_of(string_1));
-    println!("{}", type_of(string_2));
-    println!("{}", type_of(string_3));
-    println!("{}", type_of(string_4));
-    println!("{}", type_of(string_5));
+    let result = String::from_utf8(buffer).unwrap();
+    let u8_result = result.bytes();
+    println!("{result:?}");
+    println!("{u8_result:?}");
 }
-
