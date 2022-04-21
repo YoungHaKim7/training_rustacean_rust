@@ -1,15 +1,30 @@
-fn append_string(buffer: &mut Vec<u8>, data: &str) {
-    for value in data.bytes() {
-        buffer.push(value)
-    }
-}
-
 fn main() {
-    let mut buffer = Vec::new();
-    append_string(&mut buffer, "안녕 ");
+    let mut my_name = String::with_capacity(30);
+    my_name.push_str("String::from, hi Kim");
+    println!(
+        "Capacity is : {}, lens is : {}",
+        my_name.capacity(),
+        my_name.len()
+    );
+    my_name.push_str("String::from, gogogogogo");
+    println!(
+        "Capacity is : {}, lens is : {}",
+        my_name.capacity(),
+        my_name.len()
+    );
+    my_name.push_str("String::from, gogogogogo");
 
-    let result = String::from_utf8(buffer).unwrap();
-    let u8_result = result.bytes();
-    println!("{result:?}");
-    println!("{u8_result:?}");
+    println!(
+        "Capacity is : {}, lens is : {}",
+        my_name.capacity(),
+        my_name.len()
+    );
+    my_name
+        .push_str("String::from, gogogogogogogogogogogogogogogogogogogogogogogogogogogogogooggo");
+
+    println!(
+        "Capacity is : {}, lens is : {}",
+        my_name.capacity(),
+        my_name.len()
+    );
 }
