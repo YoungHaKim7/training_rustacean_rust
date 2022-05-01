@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int main(int argc, char *argv[]) {
+int main() {
   vector<string> v;
   v.push_back("hello");
 
