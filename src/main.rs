@@ -1,10 +1,10 @@
-fn greet(s: &String) {
-    println!("Hello, {} !", s);
-}
-
 fn main() {
-    let name = String::from("Young");
-    greet(&name);
-    println!("Hello again, {}", name);
-}
+    let mut v = vec![];
+    v.push("hello");
 
+    let hello = &v[0];
+    println!("{hello}");
+
+    v.push("Rust");
+    println!("{hello}");
+}
