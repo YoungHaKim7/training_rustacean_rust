@@ -1,11 +1,17 @@
 #include <iostream>
 #include <vector>
 
-int main(int argc, char *argv[]) {
-  std::vector<int> v1 = {1, 2, 3};
-  auto v2 = v1;
-  auto v3 = v1;
+using namespace std;
 
-  std::cout << v1.size() << " " << v2.size() << " " << v3.size() << std::endl;
+int main(int argc, char *argv[]) {
+  vector<string> v;
+  v.push_back("hello");
+
+  auto &hello = v[0];
+  cout << hello.c_str() << endl;
+
+  v.push_back("C++");
+  cout << hello.c_str() << endl;
+
   return 0;
 }
