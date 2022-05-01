@@ -1,7 +1,7 @@
 fn main() {
-    
-    let mut v = [-5i32, 4, 1, -3, 2];
+    let v1 = vec![1, 2, 3];
+    let v2 = v1;
+    let v3 = v1;
 
-    v.sort_by_cased_key(|k| k.abs());
-    assert!(v == [1, 2, -3, 4, -5]);
+    println!("{} {} {}", v1.len(), v2.len(), v3.len());
 }
