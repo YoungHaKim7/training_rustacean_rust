@@ -1,5 +1,13 @@
-use turtle::Turtle;
+use crate::List::{Cons, Nil};
+
+enum List {
+    Cons(i32, List),
+    Nil,
+}
+
 
 fn main() {
-    run_turtle!(|mut turtle| {})
+    let list = Cons(1, Cons(2, Cons(3, Nil)));
+    
+    println!("{list}");
 }
