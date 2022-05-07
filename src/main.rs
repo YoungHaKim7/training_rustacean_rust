@@ -1,33 +1,21 @@
-use std::sync::atomic::{AtomicUsize, Ordering};
-
-trait Tr {
-    fn default_impl() {
-        static COUNTER: AtomicUsize = AtomicUsize::new(0);
-        println!(
-            "default_impl: counter was {}",
-            COUNTER.fetch_add(1, Ordering::Relaxed)
-        );
+const fn factorial(n: usize) -> usize {
+    // prnltln!("Computing factorial of {n}")
+    let mut total = 1;
+    let mut step = 1;
+    loop {
+        if step == n {
+            break;
+        }
+        step += 1;
+        total *= step;
     }
-
-    fn blanket_impl();
+    return total;
 }
 
-struct Ty1 {}
-struct Ty2 {}
-
-impl<T> Tr for T {
-    fn blanket_impl() {
-        static COUNTER: AtomicUsize = AtomicUsize::new(0);
-        println!(
-            "blanket_impl: counter was {}",
-            COUNTER.fetch_add(1, Ordering::Relaxed)
-        );
-    }
-}
+const FACTORIAL_OF_10: usize = factorial(10);
 
 fn main() {
-    <Ty1 as Tr>::default_impl();
-    <Ty2 as Tr>::default_impl();
-    <Ty1 as Tr>::blanket_impl();
-    <Ty2 as Tr>::blanket_impl();
+    let factorial_of_11: usize = factorial(11);
+    println!("Hello, wolrd! {}", FACTORIAL_OF_10);
+    println!("Hello, wolrd! {}", factorial_of_11);
 }
