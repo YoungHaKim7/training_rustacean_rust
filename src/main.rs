@@ -1,21 +1,22 @@
-const fn factorial(n: usize) -> usize {
-    // prnltln!("Computing factorial of {n}")
-    let mut total = 1;
-    let mut step = 1;
-    loop {
-        if step == n {
-            break;
-        }
-        step += 1;
-        total *= step;
+fn lookup_player(id: u32) -> Option<String> {
+    if id == 1 {
+        return Some("crabby".to_string());
     }
-    return total;
+
+    return None;
 }
 
-const FACTORIAL_OF_10: usize = factorial(10);
+
+fn run_game() -> Option<()> {
+    // let player = match lookup_player(1) {
+    //     Some(p) => p,
+    //     None => return
+    // };
+    let player = lookup_player(1)?;
+    println!("Player: {player}");
+    Some(())
+}
 
 fn main() {
-    let factorial_of_11: usize = factorial(11);
-    println!("Hello, wolrd! {}", FACTORIAL_OF_10);
-    println!("Hello, wolrd! {}", factorial_of_11);
+    run_game();
 }
