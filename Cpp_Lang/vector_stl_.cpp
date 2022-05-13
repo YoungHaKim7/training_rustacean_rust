@@ -12,7 +12,9 @@ void display(vector<int> &v) {
 
 int main() {
   vector<int> vec1;
-  int element;
+  int element, size;
+  cout << "Enter the size of your vector " << endl;
+  cin >> size;
   for (int i = 0; i < 4; i++) {
     cout << "Enter an element to add to this vector :  ";
     cin >> element;
