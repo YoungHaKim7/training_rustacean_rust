@@ -1,76 +1,31 @@
+use std::mem;
+use std::ptr;
+
 fn main() {
-    let mut vec = Vec::new();
-    vec.push(1);
-    vec.push(2);
-    println!("{}", vec.len());
-    println!("{vec:?}");
-    let my_vec_pop = vec.pop();
-    println!("{my_vec_pop:?}");
-    println!("{vec:?}");
-    vec.push(2);
-    vec.push(3);
-    let my_vec_push = vec;
-    println!("{my_vec_push:?}");
-    println!("{:?}", my_vec_push[2]);
-    println!("------------------");
+    let v = vec![1, 2, 3];
 
-    let mut my_vec_extend = vec![4, 5, 6];
-    my_vec_extend.extend([1, 2, 3].iter().copied());
+    // Prevent running `v`'s destructor so we are in complete control
+    // of the allocation.
 
-    for x in &my_vec_extend {
-        println!("{x}");
+    let mut v = mem::ManuallyDrop::new(v);
+
+    // Pull out the various important pieces of information about `v`
+    let p = v.as_mut_ptr();
+    let len = v.len();
+    let cap = v.capacity();
+
+    // println!("{p:?}");
+    // println!("{len:?}");
+    // println!("{cap:?}");
+
+    unsafe {
+        // Overwrite memory with 4, 5, 6
+        for i in 0..len as isize {
+            ptr::write(p.offset(i), 4 + i);
+        }
+
+        // Put everything back together into a Vec
+        let rebuilt = Vec::from_raw_parts(p, len, cap);
+        assert_eq!(rebuilt, [4, 5, 6]);
     }
-    println!("------------------");
-    let my_vec2 = vec![0; 5];
-    println!("{my_vec2:?}");
-
-    println!("------------------");
-    // The following is equivalent, but potentially slower;
-    let mut vec3 = Vec::with_capacity(6);
-    vec3.resize(7, 3);
-    println!("{vec3:?}");
-
-    println!("--// Use a Vec<T> as an effcient stack:--");
-    let mut stack = Vec::new();
-
-    stack.push(1);
-    stack.push(2);
-    stack.push(3);
-
-    while let Some(top) = stack.pop() {
-        // Print 3,2,1
-        println!("{top}");
-    }
-
-    println!("------------------------------");
-    println!("Indexing");
-
-    let v = vec![0, 2, 4, 6];
-    println!("{}", v[1]);
-    // println!("{}", v[5]);
-    let u = &v[3];
-    println!("{u}");
-
-    println!("------------------------------");
-
-    let mut my_vec_capa: Vec<u64> = Vec::with_capacity(10);
-
-    // The Vector contains no items, even though it has capacity for more
-    println!("{:?}", my_vec_capa.len());
-    println!("{:?}", my_vec_capa.capacity());
-
-    // These are all done without reallocating...
-    println!("These are all done without reallocating...");
-    for i in 0..10 {
-        my_vec_capa.push(i);
-    }
-
-    println!("{:?}", my_vec_capa.len());
-    println!("{:?}", my_vec_capa.capacity());
-
-    println!(".. but this may make the vector reallocate");
-    my_vec_capa.push(11);
-    println!("{:?}", my_vec_capa);
-    println!("{:?}", my_vec_capa.len());
-    println!("{:?}", my_vec_capa.capacity());
 }
