@@ -50,4 +50,27 @@ fn main() {
     // println!("{}", v[5]);
     let u = &v[3];
     println!("{u}");
+
+    println!("------------------------------");
+
+    let mut my_vec_capa: Vec<u64> = Vec::with_capacity(10);
+
+    // The Vector contains no items, even though it has capacity for more
+    println!("{:?}", my_vec_capa.len());
+    println!("{:?}", my_vec_capa.capacity());
+
+    // These are all done without reallocating...
+    println!("These are all done without reallocating...");
+    for i in 0..10 {
+        my_vec_capa.push(i);
+    }
+
+    println!("{:?}", my_vec_capa.len());
+    println!("{:?}", my_vec_capa.capacity());
+
+    println!(".. but this may make the vector reallocate");
+    my_vec_capa.push(11);
+    println!("{:?}", my_vec_capa);
+    println!("{:?}", my_vec_capa.len());
+    println!("{:?}", my_vec_capa.capacity());
 }
