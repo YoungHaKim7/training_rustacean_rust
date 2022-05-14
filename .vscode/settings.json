@@ -1,0 +1,8 @@
+{
+	"files.associations": {
+		"*.html": "html",
+		"iostream": "cpp"
+	},
+	"editor.lineHeight": 0,
+	"editor.suggestLineHeight": 0
+}
