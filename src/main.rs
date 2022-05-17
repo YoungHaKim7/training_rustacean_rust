@@ -1,31 +1,12 @@
-use std::mem;
-use std::ptr;
+use rayon::prelude::*;
 
 fn main() {
-    let v = vec![1, 2, 3];
-
-    // Prevent running `v`'s destructor so we are in complete control
-    // of the allocation.
-
-    let mut v = mem::ManuallyDrop::new(v);
-
-    // Pull out the various important pieces of information about `v`
-    let p = v.as_mut_ptr();
-    let len = v.len();
-    let cap = v.capacity();
-
-    // println!("{p:?}");
-    // println!("{len:?}");
-    // println!("{cap:?}");
-
-    unsafe {
-        // Overwrite memory with 4, 5, 6
-        for i in 0..len as isize {
-            ptr::write(p.offset(i), 4 + i);
-        }
-
-        // Put everything back together into a Vec
-        let rebuilt = Vec::from_raw_parts(p, len, cap);
-        assert_eq!(rebuilt, [4, 5, 6]);
-    }
+    let mut arr = [0, 7, 9, 11];
+    arr.par_iter_mut().for_each(|p| {
+        let id = std::thread::current().id();
+        println!("thread id : {id:?}");
+        *p += 1;
+    });
+    println!("rayon let's go !!!");
 }
+

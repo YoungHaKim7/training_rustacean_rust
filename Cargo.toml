@@ -4,4 +4,4 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-rumio = "0.2.0"
+rayon = "1.5.3"

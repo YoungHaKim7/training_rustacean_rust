@@ -1,4 +1,3 @@
-use ndarray::prelude::*;
 use std::{f64::consts::PI, fmt::Result};
 
 fn main() -> Result<(), ndarray::ShapeError> {
