@@ -1,6 +1,9 @@
+// boilerplate
+// anyhow
+// thiserror
+
 use std::error::Error;
 use std::fmt::{Display, Formatter};
-use std::num::ParseIntError;
 
 #[derive(Debug)]
 enum CompanyError {
