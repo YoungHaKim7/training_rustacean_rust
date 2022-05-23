@@ -1,22 +1,84 @@
-use ndarray::prelude::*;
-use std::f64::consts::PI;
+// Data is pulled from https://covid.ourworldindata.org/data/owid-covid-data.json
 
-fn main() -> Result<(), ndarray::ShapeError> {
-    let a: Array1<f64> = array![0., 30., 45., 60., 90.];
+use plotters::prelude::*;
+use std::fs::File;
+use std::io::BufReader;
 
-    println!("angle {a}");
-    println!("sine(a) {}", (a * PI / 180_f64).map(|x| x.sin()));
+#[derive(serde_derive::Deserialize)]
+struct DailyData {
+    #[serde(default)]
+    new_cases: f64,
+    #[serde(default)]
+    total_cases: f64,
+}
 
-    let a = Array::from_shape_vec((3, 3), Array1::range(0., 9., 1.).to_vec())?;
+#[derive(serde_derive::Deserialize)]
+struct CountryData {
+    data: Vec<DailyData>,
+}
 
-    let b = array![10., 10., 10.];
+const OUT_FILE_NAME: &'static str = "plot.svg";
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let root = SVGBackend::new(OUT_FILE_NAME, (1024, 768)).into_drawing_area();
+    root.fill(&WHITE)?;
 
-    println!("a: {}", &a);
-    println!("b: {}", &b);
-    println!("a * 2  {}", &a * 2.);
-    println!("a + b  {}", &a + &b); // make an ArrayView, avoiding move
-    println!("a * b  {}", &a * &b);
-    println!("average(a) {}", a.sum() / a.len() as f64);
-    println!("mean(b) {:?}", b.mean());
+    let (upper, lower) = root.split_vertically(750);
+
+    lower.titled(
+        "Data Souce: https://covid.ourworldindata.org/data/owid-covid-data.json",
+        ("sans-serf", 10).into_font().color(&BLACK.mix(0.5)),
+    )?;
+
+    let mut chart = ChartBuilder::on(&upper)
+        .caption("World COVID-19 Cases", ("sans-serf", (5).percent_height()))
+        .set_label_area_size(LabelAreaPosition::Left, (8).percent())
+        .set_label_area_size(LabelAreaPosition::Bottom, (4).percent())
+        .margin((1).percent())
+        .build_cartesian_2d(
+            (20u32..5000_000u32)
+                .log_scale()
+                .with_key_points(vec![50, 100, 1000, 10000, 100000, 1000000]),
+            (0u32..50_000u32)
+                .log_scale()
+                .with_key_points(vec![10, 50, 100, 1000, 10000, 200000]),
+        )?;
+
+    chart
+        .configure_mesh()
+        .x_desc("Total Cases")
+        .y_desc("New Cases")
+        .draw()?;
+
+    let data: std::collections::HashMap<String, CountryData> =
+        serde_json::from_reader(BufReader::new(File::open("owid-covid-data.json")?))?;
+
+    for (idx, &series) in ["CHN", "USA", "RUS", "JPN", "DEU", "IND", "OWID_WRL"]
+        .iter()
+        .enumerate()
+    {
+        let color = Palette99::pick(idx).mix(0.9);
+        chart
+            .draw_series(LineSeries::new(
+                data[series].data.iter().map(
+                    |&DailyData {
+                         new_cases,
+                         total_cases,
+                         ..
+                     }| (total_cases as u32, new_cases as u32),
+                ),
+                color.stroke_width(3),
+            ))?
+            .label(series)
+            .legend(move |(x, y)| Rectangle::new([(x, y - 5), (x + 10, y + 5)], color.filled()));
+    }
+
+    chart
+        .configure_series_labels()
+        .border_style(&BLACK)
+        .draw()?;
+
+    root.present().expect("Unable to write result to file");
+    println!("Result has been saved to {}", OUT_FILE_NAME);
+
     Ok(())
 }
