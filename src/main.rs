@@ -1,63 +1,22 @@
-// boilerplate
-// anyhow
-// thiserror
+use ndarray::prelude::*;
+use std::f64::consts::PI;
 
-use std::error::Error;
-use std::fmt::{Display, Formatter};
+fn main() -> Result<(), ndarray::ShapeError> {
+    let a: Array1<f64> = array![0., 30., 45., 60., 90.];
 
-#[derive(Debug)]
-enum CompanyError {
-    CouldntConnect,
-    NotEnoughData,
-    UserTimeOut,
-}
+    println!("angles {}", a);
+    println!("sine(a) {}", (a * PI / 180_f64).map(|x| x.sin()));
 
-impl CompanyError {
-    fn print_extra_detail(&self) {
-        println!("Here is all the extra detail: blah blah blah");
-    }
-}
+    let a = Array::from_shape_vec((3, 3), Array1::range(0., 9., 1.).to_vec())?;
 
-impl Display for CompanyError {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), std::fmt::Error> {
-        write!(f, "Got a CompanyError")
-    }
-}
+    let b = array![10., 10., 10.];
 
-#[derive(Debug)]
-struct BaseError;
-
-fn give_error(is_company_error: bool) -> Box<dyn Error> {
-    if is_company_error {
-        Box::new(CompanyError::CouldntConnect)
-    } else {
-        Box::new(BaseError)
-    }
-}
-
-impl Display for BaseError {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), std::fmt::Error> {
-        write!(f, "Got a BaseError")
-    }
-}
-
-impl Error for CompanyError {}
-
-impl Error for BaseError {}
-
-// fn try_to_make_number(int_input: &str, float_input: &str) -> Result<(), ParseIntError> {
-//     let my_number = int_input.parse::<i32>()?;
-//     let other_number = float_input.parse::<f32>()?;
-//     Ok(())
-// }
-
-fn main() {
-    let error_1 = give_error(true);
-    let error_2 = give_error(false);
-
-    if let Ok(company_error) = error_1.downcast::<CompanyError>() {
-        company_error.print_extra_detail();
-    } else {
-        println!("error1 error");
-    }
+    println!("a: {}", &a);
+    println!("b: {}", &b);
+    println!("a * 2 {}", &a * 2.);
+    println!("a + b {}", &a + &b); // & make an ArrayView, avoiding move
+    println!("a * b {}", &a * &b);
+    println!("average(a) {}", a.sum() / a.len() as f64);
+    println!("mean(b) {:?}", b.mean());
+    Ok(())
 }

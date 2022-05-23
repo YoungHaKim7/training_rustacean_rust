@@ -4,4 +4,5 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-rayon = "1.5.3"
+anyhow = "1.0.57"
+ndarray = "0.15.4"
