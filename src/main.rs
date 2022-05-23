@@ -52,9 +52,9 @@ fn main() {
     let error_1 = give_error(true);
     let error_2 = give_error(false);
 
-    if let Some(company_error) = error_1.downcast_ref::<CompanyError>() {
+    if let Ok(company_error) = error_1.downcast::<CompanyError>() {
         company_error.print_extra_detail();
     } else {
-        println!("{error_1}");
+        println!("error1 error");
     }
 }
