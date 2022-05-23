@@ -1,30 +1,37 @@
-fn main() {
-    let mut number1: i32 = 10;
-    let number1_ref = &mut number1;
-    let number1_ref_ptr_add = number1_ref.clone();
-    *number1_ref = 9;
+use std::error::Error;
+use std::fmt::{Display, Formatter};
+use std::num::ParseIntError;
 
-    println!("Rust \n Refenrece & Deference & pointer Address");
-    println!(
-        "Number 1: {} \n size of (number1) : {}",
-        number1,
-        std::mem::size_of_val(&number1)
-    );
-    println!("Number 1 pointer address : {:p}", &number1_ref_ptr_add);
-
-    let mut float64_02: f64 = 23.456;
-    let float64_02_ref = &mut float64_02;
-    let float64_02_ref_ptr_add = float64_02_ref.clone();
-    *float64_02_ref = 45.789;
-    let f64_add = float64_02_ref_ptr_add.to_bits();
-
-    println!("\n Rust \n Refenrece & Deference & pointer Address");
-    println!(
-        "Number 2: {} \n size of (float64_02) : {}",
-        float64_02,
-        std::mem::size_of_val(&float64_02)
-    );
-    println!("Number 2 pointer address : {:p}", &f64_add);
+#[derive(Debug)]
+enum CompanyError {
+    CouldntConnect,
+    NotEnoughData,
+    UserTimeOut,
 }
 
+impl Display for CompanyError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "Got a CompanyError")
+    }
+}
 
+#[derive(Debug)]
+struct BaseError;
+
+impl Display for BaseError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "Got a BaseError")
+    }
+}
+
+impl Error for CompanyError {}
+
+impl Error for BaseError {}
+
+// fn try_to_make_number(int_input: &str, float_input: &str) -> Result<(), ParseIntError> {
+//     let my_number = int_input.parse::<i32>()?;
+//     let other_number = float_input.parse::<f32>()?;
+//     Ok(())
+// }
+
+fn main() {}
