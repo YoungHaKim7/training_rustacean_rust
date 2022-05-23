@@ -18,6 +18,14 @@ impl Display for CompanyError {
 #[derive(Debug)]
 struct BaseError;
 
+fn check_thing(is_okay: bool) -> Result<(), Box<dyn Error>> {
+    if is_okay {
+        Err(Box::new(CompanyError::CouldntConnect))
+    } else {
+        Err(Box::new(BaseError))
+    }
+}
+
 impl Display for BaseError {
     fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), std::fmt::Error> {
         write!(f, "Got a BaseError")
