@@ -18,11 +18,11 @@ impl Display for CompanyError {
 #[derive(Debug)]
 struct BaseError;
 
-fn check_thing(is_okay: bool) -> Result<(), Box<dyn Error>> {
-    if is_okay {
-        Err(Box::new(CompanyError::CouldntConnect))
+fn give_error(is_company_error: bool) -> Box<dyn Error> {
+    if is_company_error {
+        Box::new(CompanyError::CouldntConnect)
     } else {
-        Err(Box::new(BaseError))
+        Box::new(BaseError)
     }
 }
 
@@ -42,4 +42,9 @@ impl Error for BaseError {}
 //     Ok(())
 // }
 
-fn main() {}
+fn main() {
+    let error_1 = give_error(true);
+    let error_2 = give_error(false);
+
+    println!("{error_1}, {error_2}");
+}
